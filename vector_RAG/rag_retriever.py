@@ -165,13 +165,32 @@ def build_graph():
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
     
-    print("--- Testing Advanced RAG with LangGraph ---")
+    print("--- Advanced RAG with LangGraph: Interactive CLI ---")
     
     if "OPENAI_API_KEY" not in os.environ:
         print("OpenAI API key not found.")
     else:
         rag_app = build_graph()
-        question = "Show me liquid supplements that are good for skin and hair"
-        final_state = rag_app.invoke({"question": question})
-        print("\n--- Final Answer ---")
-        print(final_state['answer'])
+        print("\nEnter your question about DUO Life products, ingredients, or business model:")
+        print("(Type 'quit' to exit)")
+        
+        while True:
+            question = input("\nYour question: ").strip()
+            
+            if question.lower() in ['quit', 'exit', 'q']:
+                print("Goodbye!")
+                break
+                
+            if not question:
+                print("Please enter a question.")
+                continue
+                
+            print(f"\nQuerying the RAG chain with: '{question}'")
+            
+            try:
+                final_state = rag_app.invoke({"question": question})
+                print("\n--- Final Answer ---")
+                print(final_state['answer'])
+            except Exception as e:
+                print(f"\nError occurred: {e}")
+                print("Please try again with a different question.")
