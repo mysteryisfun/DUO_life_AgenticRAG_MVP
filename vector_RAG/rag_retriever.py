@@ -5,9 +5,9 @@ from typing import List, TypedDict
 
 from langchain_core.documents import Document
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.pydantic_v1 import BaseModel, Field
+from pydantic import BaseModel, Field
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
-from langchain_community.vectorstores import Chroma
+from langchain_chroma import Chroma
 from langgraph.graph import StateGraph, END
 from langchain_core.output_parsers import StrOutputParser   
 
@@ -74,7 +74,7 @@ def analyze_query_node(state: GraphState):
         
     # If we have multiple conditions, we wrap them in an "$and" operator.
     # If we have one, we use it directly. If none, it's an empty dictionary.
-    final_filters = {}
+    final_filters = None
     if len(filter_conditions) > 1:
         final_filters = {"$and": filter_conditions}
     elif len(filter_conditions) == 1:
