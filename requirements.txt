@@ -1,4 +1,15 @@
-ipykernal
+ipykernel
 pandas
 numpy
 openpyxl
+langchain
+langchain-community
+pydantic
+langchain-openai
+python-dotenv
+tiktoken
+chromadb
+langgraph
+langchain-text-splitters
+fastapi
+uvicorn
