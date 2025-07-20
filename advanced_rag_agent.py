@@ -1,254 +1,232 @@
-# advanced_rag_agent.py
-
 import os
-import logging
 from dotenv import load_dotenv
-from typing import List, TypedDict, Literal
-
-from langchain_core.documents import Document
+from typing import List, Dict, Any, TypedDict
+from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_core.prompts import ChatPromptTemplate
-from pydantic import BaseModel, Field
-from langchain_openai import OpenAIEmbeddings, ChatOpenAI
-from langchain_chroma import Chroma # <-- FIX: Using the modern, correct import
-from langgraph.graph import StateGraph, END
-from langchain_core.messages import BaseMessage, HumanMessage, AIMessage
+from langchain_core.pydantic_v1 import BaseModel, Field
 from langchain_core.output_parsers import StrOutputParser
-# Import from your existing, correct graph manager
-from graph_RAG.graph_manager import duolife_kg, get_ingredients_for_product, find_products_containing_ingredient
+from langgraph.graph import StateGraph, END
+from langchain_community.vectorstores import Chroma
+from langchain_community.chat_message_histories import ChatMessageHistory
+from langchain_core.chat_history import BaseChatMessageHistory
+from langchain_core.runnables.history import RunnableWithMessageHistory
 
-# --- Configuration ---
+
+from graph_RAG.graph_manager import get_ingredients_for_product, find_products_containing_ingredient
+
+# --- Environment and API Key Setup ---
 load_dotenv()
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-logging.getLogger("langgraph").setLevel(logging.INFO)
 
-PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-CHROMA_PERSIST_DIRECTORY = os.path.join(PROJECT_ROOT, "chroma_db")
-EMBEDDING_MODEL = "text-embedding-3-small"
-LLM_MODEL = "gpt-4o"
+# --- LLM & Embeddings ---
+llm = ChatOpenAI(model="gpt-4o", temperature=0)
+embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
 
-# (The rest of the code is structurally the same, but this ensures all parts work together)
+# --- Vector Store ---
+vectorstore = Chroma(
+    persist_directory="./chroma_db",
+    embedding_function=embeddings
+)
+retriever = vectorstore.as_retriever(search_kwargs={"k": 5})
 
-# --- State Definition ---
+# --- Agent State ---
 class AgentState(TypedDict):
     question: str
-    chat_history: List[BaseMessage]
-    search_query: str
-    filters: dict
-    documents: List[Document]
-    kg_query: dict  # Added to handle graph search queries
-    kg_result: List[str]
-    final_answer: str
+    chat_history: List[BaseModel]
+    documents: List[str]
+    graph_response: str
+    answer: str
 
-# --- Tool-Calling Models for the Router ---
-class VectorStoreSearch(BaseModel):
-    """Routes a user query to the vector store, applying appropriate filters."""
-    query: str = Field(description="The semantic query to search for in the vector store.")
-    product_type: str = Field(
-        description="The type of product, if specified (e.g., 'Liquid', 'Capsule', 'Powder'). Defaults to 'any'.",
-        default="any"
-    )
-    domain: Literal["Products", "Cosmetics", "Business_Model", "Ranks", "Compensation", "Ingredients", "Unknown"] = Field(
-        description="The primary domain the user is asking about."
-    )
+# --- PROMPTS ---
 
-class KnowledgeGraphSearch(BaseModel):
-    """Routes a user query to the knowledge graph for entity-specific questions."""
-    entity_name: str = Field(description="The specific product, cosmetic, or ingredient name.")
-    query_type: Literal["contains_ingredient", "get_ingredients"] = Field(
-        description="The type of query to perform on the knowledge graph."
-    )
+# 1. Router Prompt
+router_prompt_template = """
+You are an expert at routing a user's question to the correct tool.
+Based on the user's question, determine whether it is better to use a vector database or a graph database.
 
-# --- Graph Nodes ---
+- Use the 'vector_search' tool for questions about product descriptions, benefits, usage, business model, company info, or general queries.
+- Use the 'graph_search' tool for specific questions about the ingredients of a particular product or which products contain a specific ingredient.
+
+You must respond with ONLY the name of the tool to use, either 'vector_search' or 'graph_search'.
+
+Question: {question}
+"""
+router_prompt = ChatPromptTemplate.from_template(router_prompt_template)
+
+# 2. Generate Answer Prompt
+generate_answer_prompt_template = """
+You are a helpful assistant for the DuoLife company.
+Answer the user's question based on the provided context, which may include information from a vector search, a graph database, and the chat history.
+
+Keep your answer concise and directly address the question.
+After your conversational answer, you MUST include a structured list of sources in a JSON format.
+The JSON should be a list of objects, where each object represents a source document.
+
+Start the JSON block with the separator '---JSON_SOURCES---' on a new line.
+
+The final output should look like this:
+<Your conversational answer here.>
+---JSON_SOURCES---
+[
+  {{
+    "name": "Source Name (e.g., Product Name)",
+    "links": ["url_to_the_product_page_if_available"],
+    "type": "Document Type (e.g., Product, Business_Model)",
+    "category": "Document Category (e.g., Dietary Supplement, Marketing Plan)",
+    "snippet": "A relevant short quote from the source document."
+  }}
+]
+
+Context from vector search and/or graph search:
+{context}
+
+Question:
+{question}
+"""
+generate_answer_prompt = ChatPromptTemplate.from_template(generate_answer_prompt_template)
+
+
+# --- Agent Nodes ---
+
 def router_node(state: AgentState):
-    logging.info("[Router] Deciding next action.")
-    llm_with_tools = ChatOpenAI(model=LLM_MODEL, temperature=0).bind_tools([VectorStoreSearch, KnowledgeGraphSearch])
-    
-    system_prompt = """You are an expert at routing a user's question to the appropriate tool.
-
-Based on the user's question, you must decide whether to use the Vector Store or the Knowledge Graph.
-
-**Vector Store (`VectorStoreSearch`):**
-- Use for general questions about products, cosmetics, the business model, compensation plans, or ingredients.
-- Use for questions that require searching for information based on concepts or descriptions (e.g., "products for skin health", "how to earn money").
-- **Domain is crucial:**
-    - 'Products': For questions about supplements, health benefits, usage, etc.
-    - 'Cosmetics': For questions about creams, beauty products, etc.
-    - 'Business_Model', 'Ranks', 'Compensation': For questions about the MLM structure, earning money, career levels.
-    - 'Ingredients': For general questions about what an ingredient does.
-
-**Knowledge Graph (`KnowledgeGraphSearch`):**
-- Use ONLY for specific, direct questions about the relationships between entities.
-- `get_ingredients`: Use when the user asks for the specific ingredients of a named product (e.g., "What is in DuoLife Collagen?").
-- `contains_ingredient`: Use when the user asks which products contain a specific, named ingredient (e.g., "Which products have Shea Butter?").
-
-If the user asks a general question like "Tell me about DuoLife Collagen", route it to the `VectorStoreSearch` with the domain 'Products'.
-If the user asks a greeting or off-topic question, do not call any tool."""
-
-    prompt = ChatPromptTemplate.from_messages([
-        ("system", system_prompt),
-        ("placeholder", "{chat_history}"),
-        ("user", "{question}")
-    ])
-    
-    router_chain = prompt | llm_with_tools
-    tool_choice = router_chain.invoke({"question": state['question'], "chat_history": state['chat_history']})
-    
-    # --- FIX: If no tool is chosen, go to fallback to decide what to do next ---
-    if not tool_choice.tool_calls:
-        logging.info("  - Decision: No tool called, routing to fallback.")
-        return {"next_node": "decide_fallback"}
-        
-    tool_name = tool_choice.tool_calls[0]['name']
-    tool_args = tool_choice.tool_calls[0]['args']
-    
-    if tool_name == 'VectorStoreSearch':
-        logging.info(f"  - Decision: Route to Vector Store Search with query '{tool_args['query']}'")
-        filter_conditions = []
-        if tool_args.get('domain'):
-            filter_conditions.append({"domain": {"$eq": tool_args['domain']}})
-        product_type_filter = tool_args.get('product_type', 'any').lower().strip()
-        if product_type_filter != 'any':
-            filter_conditions.append({"type": {"$eq": product_type_filter}})
-        
-        final_filters = {}
-        if len(filter_conditions) > 1:
-            final_filters = {"$and": filter_conditions}
-        elif len(filter_conditions) == 1:
-            final_filters = filter_conditions[0]
-
-        return {"search_query": tool_args['query'], "filters": final_filters, "next_node": "vector_search"}
-    
-    elif tool_name == 'KnowledgeGraphSearch':
-        logging.info(f"  - Decision: Route to Knowledge Graph with query: {tool_args}")
-        return {"kg_query": tool_args, "next_node": "graph_search"}
-        
-    # Default fallback
-    logging.warning("  - Warning: Router could not decide on a tool. Routing to error handler.")
-    return {"next_node": "handle_error"}
+    """Routes the question to the appropriate tool."""
+    print("---ROUTING---")
+    chain = router_prompt | llm | StrOutputParser()
+    result = chain.invoke({"question": state["question"]})
+    print(f"Route: {result}")
+    if "vector_search" in result.lower():
+        return "vector_search"
+    return "graph_search"
 
 def vector_search_node(state: AgentState):
-    logging.info(f"[Vector Search] Searching for: '{state['search_query']}' with filters: {state.get('filters', {})}")
-    embeddings = OpenAIEmbeddings(model=EMBEDDING_MODEL)
-    vectorstore = Chroma(persist_directory=CHROMA_PERSIST_DIRECTORY, embedding_function=embeddings)
-    retriever = vectorstore.as_retriever(search_kwargs={"k": 4, "filter": state.get('filters', {})})
-    documents = retriever.invoke(state['search_query'])
-    logging.info(f"[Vector Search] Found {len(documents)} documents.")
-    return {"documents": documents}
+    """Retrieves documents from the vector store and formats them with metadata."""
+    print("---VECTOR SEARCH---")
+    question = state["question"]
+    docs = retriever.invoke(question)
+    
+    # Format documents with all metadata for the LLM
+    doc_details = []
+    for d in docs:
+        metadata = d.metadata
+        # Ensure all keys exist, provide defaults if not
+        name = metadata.get("name", "Unknown Source")
+        link = metadata.get("link", "")
+        doc_type = metadata.get("type", "General")
+        category = metadata.get("category", "Uncategorized")
+        snippet = d.page_content
+        
+        # Create a detailed string for each document
+        detail_str = (
+            f"Source Name: {name}\n"
+            f"Link: {link}\n"
+            f"Type: {doc_type}\n"
+            f"Category: {category}\n"
+            f"Snippet: \"{snippet}\""
+        )
+        doc_details.append(detail_str)
+        
+    formatted_docs = "\n\n---\n\n".join(doc_details)
+    return {"documents": formatted_docs, "graph_response": ""}
 
 def graph_search_node(state: AgentState):
-    logging.info(f"[Graph Search] Querying for entity: '{state['kg_query']['entity_name']}'")
-    kg_query = state['kg_query']
-    entity_name, query_type = kg_query['entity_name'], kg_query['query_type']
-    if duolife_kg is None: 
-        logging.warning("[Graph Search] Knowledge Graph not available.")
-        return {"kg_result": ["Knowledge Graph is not available."]}
-    if query_type == "get_ingredients":
-        results = get_ingredients_for_product(duolife_kg, entity_name)
-        res_str = f"The ingredients in {entity_name} are: " + ", ".join(results) if results else f"Could not find ingredients for {entity_name}."
-    elif query_type == "contains_ingredient":
-        results = find_products_containing_ingredient(duolife_kg, entity_name)
-        names = [p.get('name', 'Unknown') for p in results]
-        res_str = f"Products containing {entity_name} include: " + ", ".join(names) if names else f"Could not find any products containing {entity_name}."
-    else: 
-        res_str = "Unknown graph query type."
-    logging.info(f"[Graph Search] Result: {res_str}")
-    return {"kg_result": [res_str]}
-
-def decide_fallback_node(state: AgentState):
-    logging.info("[Fallback] Checking for retrieved information.")
-    if not state.get('documents') and not state.get('kg_result'):
-        logging.warning("[Fallback] No information found. Routing to error handler.")
-        return {"next_node": "handle_error"}
-    logging.info("[Fallback] Information found. Proceeding to generate answer.")
-    return {"next_node": "generate_answer"}
+    """Queries the knowledge graph for specific ingredient/product relationships."""
+    print("---GRAPH SEARCH---")
+    question = state["question"].lower()
+    # This is a simplified logic. A real implementation would use an LLM to extract entities.
+    if "ingredients in" in question or "what is in" in question:
+        product_name = question.split("in ")[-1].replace("?", "").strip()
+        ingredients = get_ingredients_for_product(product_name)
+        response = f"Ingredients for {product_name.title()}: {', '.join(ingredients) if ingredients else 'Not found.'}"
+    elif "which products contain" in question:
+        ingredient_name = question.split("contain ")[-1].replace("?", "").strip()
+        products = find_products_containing_ingredient(ingredient_name)
+        response = f"Products containing {ingredient_name.title()}: {', '.join(products) if products else 'Not found.'}"
+    else:
+        response = "Could not determine the specific graph query from the question."
+    return {"documents": [], "graph_response": response}
 
 def generate_answer_node(state: AgentState):
-    logging.info("[Generator] Generating final answer.")
-    context = []
-    if state.get('documents'):
-        for doc in state['documents']:
-            content_str = doc.page_content
-            if 'link' in doc.metadata:
-                content_str += f"\nSource Link: {doc.metadata['link']}"
-            context.append(content_str)
-    
-    context_str = "\n\n---\n\n".join(context)
-    
-    if state.get('kg_result'): context_str += "\n\n".join(state['kg_result'])
-    if state.get('kg_result'): context += "\n\n".join(state['kg_result'])
-    
-    system_prompt = """You are the DuoLife Customer Helper, an expert on all DuoLife products and business opportunities.
+    """Generates the final answer based on the retrieved context."""
+    print("---GENERATING ANSWER---")
+    context = f"Vector Search Results:\n{state['documents']}\n\nGraph Search Results:\n{state['graph_response']}"
+    chain = generate_answer_prompt | llm | StrOutputParser()
+    answer = chain.invoke({
+        "question": state["question"],
+        "context": context.strip()
+    })
+    return {"answer": answer}
 
-Your goal is to provide clear, helpful, and concise answers based on the context provided.
 
-- Answer the user's question directly using the information from the CONTEXT section.
-- If the context contains links to products, you MUST include up to 3 of the most relevant links in your answer.
-- Do not make up information. If the answer is not in the context, say so.
-- Format your answers to be easy to read."""
-    
-    prompt = ChatPromptTemplate.from_messages([
-        ("system", system_prompt),
-        ("placeholder", "{chat_history}"),
-        ("user", "Based on the following context...\n\nCONTEXT:\n{context}\n\nQUESTION:\n{question}")
-    ])
-    llm = ChatOpenAI(model=LLM_MODEL, temperature=0.1)
-    chain = prompt | llm | StrOutputParser()
-    answer = chain.invoke({"context": context, "question": state['question'], "chat_history": state['chat_history']})
-    return {"final_answer": answer}
+# --- Graph Definition ---
+def build_graph():
+    graph = StateGraph(AgentState)
+    graph.add_node("vector_search", vector_search_node)
+    graph.add_node("graph_search", graph_search_node)
+    graph.add_node("generate_answer", generate_answer_node)
 
-def handle_error_node(state: AgentState):
-    logging.info("[Error Handler] Providing generic response.")
-    return {"final_answer": "I'm sorry, I couldn't find specific information about that. Could you rephrase your question?"}
+    graph.set_conditional_entry_point(
+        router_node,
+        {
+            "vector_search": "vector_search",
+            "graph_search": "graph_search",
+        },
+    )
+    graph.add_edge("vector_search", "generate_answer")
+    graph.add_edge("graph_search", "generate_answer")
+    graph.add_edge("generate_answer", END)
+    return graph.compile()
 
-# --- Build the Graph ---
-workflow = StateGraph(AgentState)
-workflow.add_node("router", router_node)
-workflow.add_node("vector_search", vector_search_node)
-workflow.add_node("graph_search", graph_search_node)
-workflow.add_node("decide_fallback", decide_fallback_node)
-workflow.add_node("generate_answer", generate_answer_node)
-workflow.add_node("handle_error", handle_error_node)
-workflow.set_entry_point("router")
-workflow.add_conditional_edges(
-    "router",
-    lambda x: x["next_node"],
-    {
-        "vector_search": "vector_search",
-        "graph_search": "graph_search",
-        "decide_fallback": "decide_fallback",
-        "handle_error": "handle_error",
-    },
-)
-workflow.add_edge("vector_search", "decide_fallback")
-workflow.add_edge("graph_search", "decide_fallback")
-workflow.add_conditional_edges(
-    "decide_fallback",
-    lambda x: x["next_node"],
-    {"generate_answer": "generate_answer", "handle_error": "handle_error"},
-)
-workflow.add_edge("generate_answer", END)
-workflow.add_edge("handle_error", END)
+# --- Functions for API Integration ---
 
-advanced_rag_app = workflow.compile()
+# Store for session histories
+store = {}
 
-# --- Test Block ---
-if __name__ == '__main__':
-    print("--- Testing Advanced RAG Agent ---")
-    if "OPENAI_API_KEY" not in os.environ:
-        print("OpenAI API key not found. Cannot run tests.")
-    else:
-        chat_history = []
-        
-        print("\n\n--- TEST CASE 1: VECTOR SEARCH (Filtered) ---")
-        question1 = "Are there any liquid products for skin health?"
-        inputs1 = {"question": question1, "chat_history": chat_history}
-        result1 = advanced_rag_app.invoke(inputs1)
-        answer1 = result1['final_answer']
-        print(f"Q: {question1}\nA: {answer1}")
+def get_chat_history(session_id: str) -> BaseChatMessageHistory:
+    """Factory function to get a chat history object for a session."""
+    if session_id not in store:
+        store[session_id] = ChatMessageHistory()
+    return store[session_id]
 
-        print("\n\n--- TEST CASE 2: KNOWLEDGE GRAPH SEARCH ---")
-        question2 = "What are the ingredients in DuoLife Collagen?"
-        inputs2 = {"question": question2, "chat_history": chat_history}
-        result2 = advanced_rag_app.invoke(inputs2)
-        answer2 = result2['final_answer']
-        print(f"Q: {question2}\nA: {answer2}")
+def get_agent_executor():
+    """Builds and returns the agent executor with chat history."""
+    app = build_graph()
+    agent_executor = RunnableWithMessageHistory(
+        app,
+        get_chat_history,
+        input_messages_key="question",
+        history_messages_key="chat_history",
+    )
+    return agent_executor
+
+
+# --- Main Execution Block for Testing ---
+if __name__ == "__main__":
+    print("Agent is ready. Running test cases...")
+    agent = get_agent_executor()
+    session_id = "test_session_123"
+
+    # Test Case 1: Vector Search
+    print("\n--- TEST CASE 1: VECTOR SEARCH ---")
+    question1 = "What is DuoLife Collagen good for?"
+    response1 = agent.invoke(
+        {"question": question1},
+        config={"configurable": {"session_id": session_id}}
+    )
+    print(f"Q: {question1}\nA: {response1['answer']}")
+
+    # Test Case 2: Graph Search
+    print("\n--- TEST CASE 2: GRAPH SEARCH ---")
+    question2 = "What are the ingredients in DuoLife Collagen?"
+    response2 = agent.invoke(
+        {"question": question2},
+        config={"configurable": {"session_id": session_id}}
+    )
+    print(f"Q: {question2}\nA: {response2['answer']}")
+
+    # Test Case 3: Follow-up question (tests history)
+    print("\n--- TEST CASE 3: FOLLOW-UP ---")
+    question3 = "Which of those helps with skin?"
+    response3 = agent.invoke(
+        {"question": question3},
+        config={"configurable": {"session_id": session_id}}
+    )
+    print(f"Q: {question3}\nA: {response3['answer']}")
