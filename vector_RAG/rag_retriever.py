@@ -16,7 +16,7 @@ load_dotenv()
 
 CHROMA_PERSIST_DIRECTORY = "./chroma_db"
 EMBEDDING_MODEL = "text-embedding-3-small"
-LLM_MODEL = "gpt-4o"
+LLM_MODEL = "gpt-4.1"
 
 # --- 1. Define the State for our Graph ---
 class GraphState(TypedDict):
@@ -63,23 +63,18 @@ def analyze_query_node(state: GraphState):
     analyzer_chain = prompt | llm_with_tools
     structured_response = analyzer_chain.invoke({"question": question})
     
-    # ======================= FIX STARTS HERE =======================
-    # ChromaDB requires a specific syntax for combining multiple filters.
-    # We build a list of individual filter conditions.
     filter_conditions = []
     if structured_response.domain != "Unknown":
         filter_conditions.append({"domain": {"$eq": structured_response.domain}})
     if structured_response.product_type != "any":
         filter_conditions.append({"type": {"$eq": structured_response.product_type}})
         
-    # If we have multiple conditions, we wrap them in an "$and" operator.
-    # If we have one, we use it directly. If none, it's an empty dictionary.
     final_filters = {}
     if len(filter_conditions) > 1:
         final_filters = {"$and": filter_conditions}
     elif len(filter_conditions) == 1:
         final_filters = filter_conditions[0]
-    # ======================== FIX ENDS HERE ========================
+
         
     logging.info(f"  - Search Query: {structured_response.search_query}")
     logging.info(f"  - Constructed ChromaDB Filters: {final_filters}")
@@ -119,8 +114,13 @@ def generate_answer_node(state: GraphState):
     documents = state["documents"]
     
     prompt = ChatPromptTemplate.from_template("""
-    You are a helpful assistant for the DuoLife company. Answer the user's question based only on the following context.
-    If the context does not contain the answer, state that the information is not available. Be concise and clear.
+    You are the DuoLife Customer Helper, a friendly and knowledgeable assistant. Your goal is to help customers find the perfect DuoLife product that fits their needs and answer their questions clearly.
+
+    Please use only the information provided in the CONTEXT below to answer the user's QUESTION. Do not make up information or use outside knowledge.
+
+    - Speak directly to the customer in a supportive and helpful tone.
+    - If the context describes a product that matches the customer's query, summarize its main benefits and explain how it could help them. Mention the product's name if it is available in the context.
+    - If the context does not contain the answer, politely state that you couldn't find the specific information and that you're ready to assist with anything else.
 
     CONTEXT:
     {context}

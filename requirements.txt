@@ -13,3 +13,6 @@ langgraph
 langchain-text-splitters
 fastapi
 uvicorn
+networkx
+lxml
+

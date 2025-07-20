@@ -1,0 +1,1721 @@
+[
+    {
+        "id": "ingredient_astragin",
+        "type": "Ingredient",
+        "name": "ASTRAGIN\u00ae"
+    },
+    {
+        "id": "ingredient_acacia_fiber",
+        "type": "Ingredient",
+        "name": "Acacia (Acacia senegal) fiber"
+    },
+    {
+        "id": "ingredient_acai_berry",
+        "type": "Ingredient",
+        "name": "Acai (Euterpe Badiocarpa) berry extract"
+    },
+    {
+        "id": "ingredient_acai",
+        "type": "Ingredient",
+        "name": "Acai (Euterpe oleracea) fruit extract"
+    },
+    {
+        "id": "ingredient_acerola",
+        "type": "Ingredient",
+        "name": "Acerola (Malpighia glabra) fruit extract"
+    },
+    {
+        "id": "ingredient_alfalfa",
+        "type": "Ingredient",
+        "name": "Alfalfa (Medicago sativa) extract"
+    },
+    {
+        "id": "ingredient_allantoin",
+        "type": "Ingredient",
+        "name": "Allantoin"
+    },
+    {
+        "id": "ingredient_aloe_with_pulp",
+        "type": "Ingredient",
+        "name": "Aloe (Aloe vera) juice with pulp"
+    },
+    {
+        "id": "ingredient_aloe",
+        "type": "Ingredient",
+        "name": "Aloe (Aloe vera) leaf extract"
+    },
+    {
+        "id": "ingredient_aloe_stem_cells",
+        "type": "Ingredient",
+        "name": "Aloe Stem Cells"
+    },
+    {
+        "id": "ingredient_aloe_vera",
+        "type": "Ingredient",
+        "name": "Aloe Vera Extract"
+    },
+    {
+        "id": "ingredient_amla",
+        "type": "Ingredient",
+        "name": "Amla (Emblica officinalis) fruit extract"
+    },
+    {
+        "id": "ingredient_apigenin",
+        "type": "Ingredient",
+        "name": "Apigenin (from grapefruit (Citrus paradisi))"
+    },
+    {
+        "id": "ingredient_apple",
+        "type": "Ingredient",
+        "name": "Apple (Malus domestica) juice"
+    },
+    {
+        "id": "ingredient_apple_puree",
+        "type": "Ingredient",
+        "name": "Apple (Malus domestica) puree"
+    },
+    {
+        "id": "ingredient_apricot",
+        "type": "Ingredient",
+        "name": "Apricot (Prunus armeniaca) seed extract"
+    },
+    {
+        "id": "ingredient_artichoke",
+        "type": "Ingredient",
+        "name": "Artichoke (Cynara scolymus) leaf extract"
+    },
+    {
+        "id": "ingredient_asafin",
+        "type": "Ingredient",
+        "name": "Asafin\u00ae"
+    },
+    {
+        "id": "ingredient_avocado",
+        "type": "Ingredient",
+        "name": "Avocado Oil"
+    },
+    {
+        "id": "ingredient_boswellin",
+        "type": "Ingredient",
+        "name": "BOSWELLIN\u00ae"
+    },
+    {
+        "id": "ingredient_bamboo_shoot",
+        "type": "Ingredient",
+        "name": "Bamboo (Bambusa vulgaris) shoot extract"
+    },
+    {
+        "id": "ingredient_bean_pod",
+        "type": "Ingredient",
+        "name": "Bean (Phaseolus vulgaris) pod extract"
+    },
+    {
+        "id": "ingredient_beet_red",
+        "type": "Ingredient",
+        "name": "Beetroot red"
+    },
+    {
+        "id": "ingredient_betaine",
+        "type": "Ingredient",
+        "name": "Betaine"
+    },
+    {
+        "id": "ingredient_bifidobacterium_bifidum_rosell_r0071",
+        "type": "Ingredient",
+        "name": "Bifidobacterium bifidum Rosell\u00ae R0071"
+    },
+    {
+        "id": "ingredient_bifidobacterium_longum_rosell_r0175",
+        "type": "Ingredient",
+        "name": "Bifidobacterium longum Rosell\u00ae R0175"
+    },
+    {
+        "id": "ingredient_bilberry",
+        "type": "Ingredient",
+        "name": "Bilberry (Vaccinium myrtillus) extract"
+    },
+    {
+        "id": "ingredient_bioslimer",
+        "type": "Ingredient",
+        "name": "BioSlimer\u00ae"
+    },
+    {
+        "id": "ingredient_black_rice",
+        "type": "Ingredient",
+        "name": "Black Rice"
+    },
+    {
+        "id": "ingredient_black_chokeberry",
+        "type": "Ingredient",
+        "name": "Black chokeberry (Aronia melanocarpa) fruit extract"
+    },
+    {
+        "id": "ingredient_black_currant",
+        "type": "Ingredient",
+        "name": "Black currant (Ribes nigrum) leaf extract"
+    },
+    {
+        "id": "ingredient_black_radish",
+        "type": "Ingredient",
+        "name": "Black radish (Raphanus sativus var. niger) root extract"
+    },
+    {
+        "id": "ingredient_black_rice_flower",
+        "type": "Ingredient",
+        "name": "Black rice (Oryza sativa) and fig opuntia (Opuntia ficus-indica) flower extract"
+    },
+    {
+        "id": "ingredient_blackberry_concentrate",
+        "type": "Ingredient",
+        "name": "Blackberry (Rubus fruticosus) juice concentrate"
+    },
+    {
+        "id": "ingredient_blackcurrant",
+        "type": "Ingredient",
+        "name": "Blackcurrant (Ribes nigrum) fruit juice"
+    },
+    {
+        "id": "ingredient_bladderwrack",
+        "type": "Ingredient",
+        "name": "Bladderwrack (Fucus vesiculosus) extract"
+    },
+    {
+        "id": "ingredient_borage",
+        "type": "Ingredient",
+        "name": "Borage (Borago officinalis) oil"
+    },
+    {
+        "id": "ingredient_borelisspro",
+        "type": "Ingredient",
+        "name": "BorelissPro\u00ae"
+    },
+    {
+        "id": "ingredient_brahmi",
+        "type": "Ingredient",
+        "name": "Brahmi (Bacopa monnieri) leaf extract"
+    },
+    {
+        "id": "ingredient_butyric_acid",
+        "type": "Ingredient",
+        "name": "Butyric acid (as butyrate)"
+    },
+    {
+        "id": "ingredient_camu_camu_berry",
+        "type": "Ingredient",
+        "name": "Camu camu (Myrciaria dubia) berry extract"
+    },
+    {
+        "id": "ingredient_cat_s_claw_stem",
+        "type": "Ingredient",
+        "name": "Cat's claw (Uncaria tomentosa) stem extract"
+    },
+    {
+        "id": "ingredient_cedar_nut",
+        "type": "Ingredient",
+        "name": "Cedar nut oil (Pinus sibirica)"
+    },
+    {
+        "id": "ingredient_centella_asiatica",
+        "type": "Ingredient",
+        "name": "Centella Asiatica Extract"
+    },
+    {
+        "id": "ingredient_chickpea_protein",
+        "type": "Ingredient",
+        "name": "Chickpea (Cicer arietinum) protein"
+    },
+    {
+        "id": "ingredient_chicory_inulin",
+        "type": "Ingredient",
+        "name": "Chicory root inulin (FOS)"
+    },
+    {
+        "id": "ingredient_chinese_magnolia_vine",
+        "type": "Ingredient",
+        "name": "Chinese magnolia-vine (Schisandra chinensis) fruit extract"
+    },
+    {
+        "id": "ingredient_chlorella",
+        "type": "Ingredient",
+        "name": "Chlorella (Chlorella vulgaris) extract"
+    },
+    {
+        "id": "ingredient_chlorophyllin",
+        "type": "Ingredient",
+        "name": "Chlorophyllin"
+    },
+    {
+        "id": "ingredient_chokeberry",
+        "type": "Ingredient",
+        "name": "Chokeberry (Aronia melanocarpa) juice"
+    },
+    {
+        "id": "ingredient_chondroitin_sulfate",
+        "type": "Ingredient",
+        "name": "Chondroitin sulfate (from sharks)"
+    },
+    {
+        "id": "ingredient_cinnamon_bark",
+        "type": "Ingredient",
+        "name": "Cinnamon (Cinnamomum zeylanicum-verum) bark"
+    },
+    {
+        "id": "ingredient_citric_acid",
+        "type": "Ingredient",
+        "name": "Citric acid"
+    },
+    {
+        "id": "ingredient_citrus_pectin",
+        "type": "Ingredient",
+        "name": "Citrus pectin"
+    },
+    {
+        "id": "ingredient_cocoa_butter",
+        "type": "Ingredient",
+        "name": "Cocoa Butter"
+    },
+    {
+        "id": "ingredient_collagen",
+        "type": "Ingredient",
+        "name": "Collagen"
+    },
+    {
+        "id": "ingredient_common_buckwheat_sprout",
+        "type": "Ingredient",
+        "name": "Common buckwheat (Fagopyrum esculentum) sprout extract"
+    },
+    {
+        "id": "ingredient_common_chicory",
+        "type": "Ingredient",
+        "name": "Common chicory (Cichorium intybus) root extract"
+    },
+    {
+        "id": "ingredient_concentrated_mixture_of_carotenoids",
+        "type": "Ingredient",
+        "name": "Concentrated mixture of carotenoids (from Mexican marigold (Tagetes erecta) extract)"
+    },
+    {
+        "id": "ingredient_copper",
+        "type": "Ingredient",
+        "name": "Copper"
+    },
+    {
+        "id": "ingredient_corn",
+        "type": "Ingredient",
+        "name": "Corn oil (Zea mays)"
+    },
+    {
+        "id": "ingredient_cranberry_s",
+        "type": "Ingredient",
+        "name": "Cranberry Seeds"
+    },
+    {
+        "id": "ingredient_dog_rose_and",
+        "type": "Ingredient",
+        "name": "Dog rose (Rosa canina) fruit and juice extract"
+    },
+    {
+        "id": "ingredient_dried_plum_concentrate",
+        "type": "Ingredient",
+        "name": "Dried plum (Prunus domestica) juice concentrate"
+    },
+    {
+        "id": "ingredient_eggplant",
+        "type": "Ingredient",
+        "name": "Eggplant (Solanum melongena) extract"
+    },
+    {
+        "id": "ingredient_elderberry",
+        "type": "Ingredient",
+        "name": "Elderberry (Sambucus nigra) fruit extract"
+    },
+    {
+        "id": "ingredient_erythritol",
+        "type": "Ingredient",
+        "name": "Erythritol"
+    },
+    {
+        "id": "ingredient_evening_primrose",
+        "type": "Ingredient",
+        "name": "Evening primrose (Oenothera biennis) seed extract"
+    },
+    {
+        "id": "ingredient_fibregum",
+        "type": "Ingredient",
+        "name": "FIBREGUM\u2122"
+    },
+    {
+        "id": "ingredient_fallopia_japonica",
+        "type": "Ingredient",
+        "name": "Fallopia japonica (Polygonum cuspidatum) root extract"
+    },
+    {
+        "id": "ingredient_fennel",
+        "type": "Ingredient",
+        "name": "Fennel (Foeniculum vulgare) seed extract"
+    },
+    {
+        "id": "ingredient_feverfew",
+        "type": "Ingredient",
+        "name": "Feverfew (Tanacetum parthenium) leaf extract"
+    },
+    {
+        "id": "ingredient_field_horsetail",
+        "type": "Ingredient",
+        "name": "Field horsetail (Equisetum arvense) extract"
+    },
+    {
+        "id": "ingredient_folic_acid",
+        "type": "Ingredient",
+        "name": "Folic acid (vitamin B9)"
+    },
+    {
+        "id": "ingredient_garcinia_cambogia",
+        "type": "Ingredient",
+        "name": "Garcinia cambogia fruit extract"
+    },
+    {
+        "id": "ingredient_garlic",
+        "type": "Ingredient",
+        "name": "Garlic (Allium sativum) extract"
+    },
+    {
+        "id": "ingredient_garlic_stem",
+        "type": "Ingredient",
+        "name": "Garlic (Allium sativum) stem extract"
+    },
+    {
+        "id": "ingredient_ginseng",
+        "type": "Ingredient",
+        "name": "Ginseng (Panax ginseng) root extract"
+    },
+    {
+        "id": "ingredient_glucosamine_sulfate",
+        "type": "Ingredient",
+        "name": "Glucosamine sulfate (from crustaceans)"
+    },
+    {
+        "id": "ingredient_goat_s_rue",
+        "type": "Ingredient",
+        "name": "Goat's rue (Galega officinalis) extract"
+    },
+    {
+        "id": "ingredient_goji_berry",
+        "type": "Ingredient",
+        "name": "Goji (Lycium barbarum) berry extract"
+    },
+    {
+        "id": "ingredient_goji",
+        "type": "Ingredient",
+        "name": "Goji (Lycium barbarum) fruit extract"
+    },
+    {
+        "id": "ingredient_golden",
+        "type": "Ingredient",
+        "name": "Golden root (Rhodiola rosea) root extract"
+    },
+    {
+        "id": "ingredient_gotu_kola",
+        "type": "Ingredient",
+        "name": "Gotu kola (Centella asiatica) leaf extract"
+    },
+    {
+        "id": "ingredient_grape",
+        "type": "Ingredient",
+        "name": "Grape (Vitis vinifera) fruit extract"
+    },
+    {
+        "id": "ingredient_graviola",
+        "type": "Ingredient",
+        "name": "Graviola (Annona muricata) fruit powder"
+    },
+    {
+        "id": "ingredient_green_tea",
+        "type": "Ingredient",
+        "name": "Green Tea Extract"
+    },
+    {
+        "id": "ingredient_green_chireta",
+        "type": "Ingredient",
+        "name": "Green chireta (Andrographis paniculata) leaf extract"
+    },
+    {
+        "id": "ingredient_green_coffee",
+        "type": "Ingredient",
+        "name": "Green coffee extract"
+    },
+    {
+        "id": "ingredient_green_microalgae",
+        "type": "Ingredient",
+        "name": "Green microalgae (Haematococcus pluvialis) extract"
+    },
+    {
+        "id": "ingredient_green_microalgae_aplanospore",
+        "type": "Ingredient",
+        "name": "Green microalgae aplanospore extract"
+    },
+    {
+        "id": "ingredient_green_propolis",
+        "type": "Ingredient",
+        "name": "Green propolis extract"
+    },
+    {
+        "id": "ingredient_guava_puree",
+        "type": "Ingredient",
+        "name": "Guava (Psidium guajava) fruit puree"
+    },
+    {
+        "id": "ingredient_gynostemma_pentaphyllum",
+        "type": "Ingredient",
+        "name": "Gynostemma pentaphyllum leaf extract"
+    },
+    {
+        "id": "ingredient_hemp",
+        "type": "Ingredient",
+        "name": "Hemp Oil"
+    },
+    {
+        "id": "ingredient_honey",
+        "type": "Ingredient",
+        "name": "Honey"
+    },
+    {
+        "id": "ingredient_hop_cones",
+        "type": "Ingredient",
+        "name": "Hop (Humulus lupulus) cones"
+    },
+    {
+        "id": "ingredient_horsetail",
+        "type": "Ingredient",
+        "name": "Horsetail (Equisetum arvense) extract"
+    },
+    {
+        "id": "ingredient_hyaluronic_acid",
+        "type": "Ingredient",
+        "name": "Hyaluronic Acid"
+    },
+    {
+        "id": "ingredient_hydrolyzed_keratin",
+        "type": "Ingredient",
+        "name": "Hydrolyzed Keratin"
+    },
+    {
+        "id": "ingredient_immunel",
+        "type": "Ingredient",
+        "name": "IMMUNEL\u2122"
+    },
+    {
+        "id": "ingredient_inavea_baobab_acacia",
+        "type": "Ingredient",
+        "name": "INAVEA\u2122 BAOBAB ACACIA"
+    },
+    {
+        "id": "ingredient_inulin",
+        "type": "Ingredient",
+        "name": "Inulin (from common chicory (Cichorium intybus) root)"
+    },
+    {
+        "id": "ingredient_iodine",
+        "type": "Ingredient",
+        "name": "Iodine"
+    },
+    {
+        "id": "ingredient_iron",
+        "type": "Ingredient",
+        "name": "Iron"
+    },
+    {
+        "id": "ingredient_ironwort_mountain_tea",
+        "type": "Ingredient",
+        "name": "Ironwort/mountain tea (Sideritis scardica) leaf extract"
+    },
+    {
+        "id": "ingredient_kiwi",
+        "type": "Ingredient",
+        "name": "Kiwi (Actinidia chinensis Planch) fruit extract"
+    },
+    {
+        "id": "ingredient_konjac",
+        "type": "Ingredient",
+        "name": "Konjac (Amorphophallus konjac) root extract"
+    },
+    {
+        "id": "ingredient_l_tryptophan",
+        "type": "Ingredient",
+        "name": "L-tryptophan"
+    },
+    {
+        "id": "ingredient_lacticaseibacillus_rhamnosus_rosell_r0011",
+        "type": "Ingredient",
+        "name": "Lacticaseibacillus rhamnosus Rosell\u00ae R0011"
+    },
+    {
+        "id": "ingredient_lactobacillus_helveticus_rosell_r0052",
+        "type": "Ingredient",
+        "name": "Lactobacillus helveticus Rosell\u00ae R0052"
+    },
+    {
+        "id": "ingredient_lactose_free_whey_protein_blend",
+        "type": "Ingredient",
+        "name": "Lactose-free whey protein blend (WPC, WPI, WPH)"
+    },
+    {
+        "id": "ingredient_large_cranberry",
+        "type": "Ingredient",
+        "name": "Large cranberry (Vaccinium macrocarpon) fruit juice"
+    },
+    {
+        "id": "ingredient_lavender_flower",
+        "type": "Ingredient",
+        "name": "Lavender (Lavandula angustifolia) flower extract"
+    },
+    {
+        "id": "ingredient_lemon_concentrate",
+        "type": "Ingredient",
+        "name": "Lemon (Citrus limon) juice concentrate"
+    },
+    {
+        "id": "ingredient_lemon_balm",
+        "type": "Ingredient",
+        "name": "Lemon balm (Melissa officinalis) extract"
+    },
+    {
+        "id": "ingredient_lemon_balm_leaves",
+        "type": "Ingredient",
+        "name": "Lemon balm (Melissa officinalis) leaves"
+    },
+    {
+        "id": "ingredient_lime_concentrate",
+        "type": "Ingredient",
+        "name": "Lime (Citrus aurantifolia) juice concentrate powder"
+    },
+    {
+        "id": "ingredient_lin",
+        "type": "Ingredient",
+        "name": "Linseed oil (Linum usitatissimum)"
+    },
+    {
+        "id": "ingredient_maca",
+        "type": "Ingredient",
+        "name": "Maca (Lepidium meyenii) root extract"
+    },
+    {
+        "id": "ingredient_macadamia",
+        "type": "Ingredient",
+        "name": "Macadamia Oil"
+    },
+    {
+        "id": "ingredient_macadamia_nut",
+        "type": "Ingredient",
+        "name": "Macadamia nut oil (Macadamia integrifolia)"
+    },
+    {
+        "id": "ingredient_manganese",
+        "type": "Ingredient",
+        "name": "Manganese"
+    },
+    {
+        "id": "ingredient_mango",
+        "type": "Ingredient",
+        "name": "Mango (Mangifera indica) fruit extract"
+    },
+    {
+        "id": "ingredient_mango_puree",
+        "type": "Ingredient",
+        "name": "Mango (Mangifera indica) fruit puree"
+    },
+    {
+        "id": "ingredient_mango_butter",
+        "type": "Ingredient",
+        "name": "Mango Butter"
+    },
+    {
+        "id": "ingredient_maqui_berry",
+        "type": "Ingredient",
+        "name": "Maqui berry (Aristotelia chilensis) extract"
+    },
+    {
+        "id": "ingredient_matcha_green_tea_ed_leaves",
+        "type": "Ingredient",
+        "name": "Matcha green tea (Camellia sinensis) powdered leaves"
+    },
+    {
+        "id": "ingredient_medium_chain_triglycerides",
+        "type": "Ingredient",
+        "name": "Medium chain triglycerides (MCTs) (from coconut oil)"
+    },
+    {
+        "id": "ingredient_microencapsulated_natural_lycopene",
+        "type": "Ingredient",
+        "name": "Microencapsulated natural lycopene"
+    },
+    {
+        "id": "ingredient_micronized_lutein_crystals",
+        "type": "Ingredient",
+        "name": "Micronized lutein crystals"
+    },
+    {
+        "id": "ingredient_micronized_natural_beta_carotene_crystals",
+        "type": "Ingredient",
+        "name": "Micronized natural beta-carotene crystals"
+    },
+    {
+        "id": "ingredient_micronized_zeaxanthin_crystals",
+        "type": "Ingredient",
+        "name": "Micronized zeaxanthin crystals"
+    },
+    {
+        "id": "ingredient_milk_thistle",
+        "type": "Ingredient",
+        "name": "Milk thistle (Silybum marianum) seed extract"
+    },
+    {
+        "id": "ingredient_millet",
+        "type": "Ingredient",
+        "name": "Millet (Panicum miliaceum) seed extract"
+    },
+    {
+        "id": "ingredient_mint",
+        "type": "Ingredient",
+        "name": "Mint Extract"
+    },
+    {
+        "id": "ingredient_molybdenum",
+        "type": "Ingredient",
+        "name": "Molybdenum"
+    },
+    {
+        "id": "ingredient_munapsys",
+        "type": "Ingredient",
+        "name": "Munapsys"
+    },
+    {
+        "id": "ingredient_nutriose",
+        "type": "Ingredient",
+        "name": "NUTRIOSE\u00ae"
+    },
+    {
+        "id": "ingredient_natural_cranberry_flavor",
+        "type": "Ingredient",
+        "name": "Natural cranberry flavor"
+    },
+    {
+        "id": "ingredient_natural_cream_flavor",
+        "type": "Ingredient",
+        "name": "Natural cream flavor"
+    },
+    {
+        "id": "ingredient_natural_grape_flavoring",
+        "type": "Ingredient",
+        "name": "Natural grapefruit flavoring"
+    },
+    {
+        "id": "ingredient_natural_orange_flavor",
+        "type": "Ingredient",
+        "name": "Natural orange flavor"
+    },
+    {
+        "id": "ingredient_natural_vanilla_flavor",
+        "type": "Ingredient",
+        "name": "Natural vanilla flavor"
+    },
+    {
+        "id": "ingredient_natural_vitamin_d3",
+        "type": "Ingredient",
+        "name": "Natural vitamin D3 (cholecalciferol)"
+    },
+    {
+        "id": "ingredient_natural_vitamin_e",
+        "type": "Ingredient",
+        "name": "Natural vitamin E (D-alpha-tocopherol)"
+    },
+    {
+        "id": "ingredient_natural_vitamin_k2_mk7",
+        "type": "Ingredient",
+        "name": "Natural vitamin K2 MK7 (menaquinone) (from natto extract)"
+    },
+    {
+        "id": "ingredient_nettle",
+        "type": "Ingredient",
+        "name": "Nettle (Urtica dioica) leaf extract"
+    },
+    {
+        "id": "ingredient_new_zealand_green_lipped_mussel",
+        "type": "Ingredient",
+        "name": "New Zealand green-lipped mussel (Perna canaliculus) extract"
+    },
+    {
+        "id": "ingredient_noni",
+        "type": "Ingredient",
+        "name": "Noni (Morinda citrifolia) fruit juice"
+    },
+    {
+        "id": "ingredient_one_hawthorn",
+        "type": "Ingredient",
+        "name": "Oneseed hawthorn (Crataegus monogyna) fruit extract"
+    },
+    {
+        "id": "ingredient_oregano",
+        "type": "Ingredient",
+        "name": "Oregano (Origanum vulgare) herb extract"
+    },
+    {
+        "id": "ingredient_organic_pea_shoot",
+        "type": "Ingredient",
+        "name": "Organic Pea Shoot"
+    },
+    {
+        "id": "ingredient_organic_pea_sprout",
+        "type": "Ingredient",
+        "name": "Organic pea (Pisum sativum) sprout extract"
+    },
+    {
+        "id": "ingredient_organic_perilla",
+        "type": "Ingredient",
+        "name": "Organic perilla (Perilla frutescens) seed oil"
+    },
+    {
+        "id": "ingredient_organic_zinc",
+        "type": "Ingredient",
+        "name": "Organic zinc (from Saccharomyces cerevisiae yeast)"
+    },
+    {
+        "id": "ingredient_organic_zinc_salts",
+        "type": "Ingredient",
+        "name": "Organic zinc salts"
+    },
+    {
+        "id": "ingredient_palatinose",
+        "type": "Ingredient",
+        "name": "Palatinose\u2122 (isomaltulose)"
+    },
+    {
+        "id": "ingredient_panthenol",
+        "type": "Ingredient",
+        "name": "Panthenol"
+    },
+    {
+        "id": "ingredient_pea_sprout",
+        "type": "Ingredient",
+        "name": "Pea Sprout Extract"
+    },
+    {
+        "id": "ingredient_pectins",
+        "type": "Ingredient",
+        "name": "Pectins (from citrus fruit peel)"
+    },
+    {
+        "id": "ingredient_pentavitin",
+        "type": "Ingredient",
+        "name": "Pentavitin\u00ae"
+    },
+    {
+        "id": "ingredient_peppermint",
+        "type": "Ingredient",
+        "name": "Peppermint (Mentha piperita) leaf extract"
+    },
+    {
+        "id": "ingredient_phyto_c",
+        "type": "Ingredient",
+        "name": "Phyto-C\u00ae"
+    },
+    {
+        "id": "ingredient_phytosterols",
+        "type": "Ingredient",
+        "name": "Phytosterols (from soybean (Glycine max Merr.) seed oil extract)"
+    },
+    {
+        "id": "ingredient_pink_rock_rose",
+        "type": "Ingredient",
+        "name": "Pink rock-rose (Cistus creticus) leaf extract"
+    },
+    {
+        "id": "ingredient_plum",
+        "type": "Ingredient",
+        "name": "Plum (Prunus domestica) juice"
+    },
+    {
+        "id": "ingredient_pomegranate",
+        "type": "Ingredient",
+        "name": "Pomegranate (Punica granatum) fruit juice"
+    },
+    {
+        "id": "ingredient_potassium_bicarbonate",
+        "type": "Ingredient",
+        "name": "Potassium Bicarbonate"
+    },
+    {
+        "id": "ingredient_prebiotic_biolin_p",
+        "type": "Ingredient",
+        "name": "Prebiotic Biolin P"
+    },
+    {
+        "id": "ingredient_procholterol",
+        "type": "Ingredient",
+        "name": "ProCholterol\u00ae"
+    },
+    {
+        "id": "ingredient_prodeacid",
+        "type": "Ingredient",
+        "name": "ProDeacid\u00ae"
+    },
+    {
+        "id": "ingredient_proimmuno",
+        "type": "Ingredient",
+        "name": "ProImmuno\u00ae"
+    },
+    {
+        "id": "ingredient_promigren",
+        "type": "Ingredient",
+        "name": "ProMigren\u00ae"
+    },
+    {
+        "id": "ingredient_prorelaxin",
+        "type": "Ingredient",
+        "name": "ProRelaxin\u00ae"
+    },
+    {
+        "id": "ingredient_proselect",
+        "type": "Ingredient",
+        "name": "ProSelect\u00ae"
+    },
+    {
+        "id": "ingredient_prosugar",
+        "type": "Ingredient",
+        "name": "ProSugar\u00ae"
+    },
+    {
+        "id": "ingredient_propolis",
+        "type": "Ingredient",
+        "name": "Propolis extract (from black poplar (Populus nigra))"
+    },
+    {
+        "id": "ingredient_proprietary_formula_derived_from_inactivated_saccharomyces_cerevisiae_yeast_cells",
+        "type": "Ingredient",
+        "name": "Proprietary formula derived from inactivated Saccharomyces cerevisiae yeast cells"
+    },
+    {
+        "id": "ingredient_proprietary_formula_of_bitter_orange",
+        "type": "Ingredient",
+        "name": "Proprietary formula of bitter orange (Citrus aurantium) fruit extract"
+    },
+    {
+        "id": "ingredient_proprietary_formula_of_common_wheat",
+        "type": "Ingredient",
+        "name": "Proprietary formula of common wheat (Triticum vulgare) seed oil"
+    },
+    {
+        "id": "ingredient_pumpkin",
+        "type": "Ingredient",
+        "name": "Pumpkin (Cucurbita pepo) seed extract"
+    },
+    {
+        "id": "ingredient_purple_mangosteen",
+        "type": "Ingredient",
+        "name": "Purple mangosteen (Garcinia mangostana) fruit extract"
+    },
+    {
+        "id": "ingredient_raspberry",
+        "type": "Ingredient",
+        "name": "Raspberry (Rubus idaeus) fruit juice"
+    },
+    {
+        "id": "ingredient_red_beet",
+        "type": "Ingredient",
+        "name": "Red beet (Beta vulgaris) extract"
+    },
+    {
+        "id": "ingredient_red_grape_concentrate",
+        "type": "Ingredient",
+        "name": "Red grape fruit juice concentrate"
+    },
+    {
+        "id": "ingredient_red_grape",
+        "type": "Ingredient",
+        "name": "Red grape juice"
+    },
+    {
+        "id": "ingredient_red_yeast_rice",
+        "type": "Ingredient",
+        "name": "Red yeast rice extract"
+    },
+    {
+        "id": "ingredient_red_sage",
+        "type": "Ingredient",
+        "name": "Red-root sage (Salvia miltiorrhiza) extract"
+    },
+    {
+        "id": "ingredient_reishi_mushroom",
+        "type": "Ingredient",
+        "name": "Reishi mushroom (Ganoderma lucidum) extract"
+    },
+    {
+        "id": "ingredient_riboflavin",
+        "type": "Ingredient",
+        "name": "Riboflavin (vitamin B2)"
+    },
+    {
+        "id": "ingredient_rose_hip",
+        "type": "Ingredient",
+        "name": "Rose hip (Rosa canina) extract"
+    },
+    {
+        "id": "ingredient_rosemary",
+        "type": "Ingredient",
+        "name": "Rosemary (Rosmarinus officinalis) leaf extract"
+    },
+    {
+        "id": "ingredient_slendacor",
+        "type": "Ingredient",
+        "name": "SLENDACOR\u00ae"
+    },
+    {
+        "id": "ingredient_sunfiber",
+        "type": "Ingredient",
+        "name": "SUNFIBER\u00ae"
+    },
+    {
+        "id": "ingredient_saccharomyces_boulardii_cncm_i_1079",
+        "type": "Ingredient",
+        "name": "Saccharomyces boulardii CNCM I-1079"
+    },
+    {
+        "id": "ingredient_saccharomyces_cerevisiae_yeast_protein",
+        "type": "Ingredient",
+        "name": "Saccharomyces cerevisiae yeast protein"
+    },
+    {
+        "id": "ingredient_saffron_flower",
+        "type": "Ingredient",
+        "name": "Saffron (Crocus sativus) flower extract"
+    },
+    {
+        "id": "ingredient_saffron_stamen",
+        "type": "Ingredient",
+        "name": "Saffron (Crocus sativus) stamen extract"
+    },
+    {
+        "id": "ingredient_saffron",
+        "type": "Ingredient",
+        "name": "Saffron oil"
+    },
+    {
+        "id": "ingredient_salt",
+        "type": "Ingredient",
+        "name": "Salt (sodium chloride)"
+    },
+    {
+        "id": "ingredient_saltwater_fish_skin_collagen",
+        "type": "Ingredient",
+        "name": "Saltwater fish skin collagen"
+    },
+    {
+        "id": "ingredient_schisandra",
+        "type": "Ingredient",
+        "name": "Schisandra (Schisandra chinensis) fruit extract"
+    },
+    {
+        "id": "ingredient_sea_buckthorn",
+        "type": "Ingredient",
+        "name": "Sea-buckthorn (Hippophae rhamnoides) fruit juice"
+    },
+    {
+        "id": "ingredient_selenium",
+        "type": "Ingredient",
+        "name": "Selenium"
+    },
+    {
+        "id": "ingredient_sesame",
+        "type": "Ingredient",
+        "name": "Sesame seed oil (Sesamum indicum)"
+    },
+    {
+        "id": "ingredient_shea_butter",
+        "type": "Ingredient",
+        "name": "Shea Butter"
+    },
+    {
+        "id": "ingredient_shiitake_mushroom",
+        "type": "Ingredient",
+        "name": "Shiitake mushroom (Lentinula edodes) extract"
+    },
+    {
+        "id": "ingredient_silicon_dioxide",
+        "type": "Ingredient",
+        "name": "Silicon dioxide (from rice)"
+    },
+    {
+        "id": "ingredient_solubilized_keratin",
+        "type": "Ingredient",
+        "name": "Solubilized keratin"
+    },
+    {
+        "id": "ingredient_soybean",
+        "type": "Ingredient",
+        "name": "Soybean (Glycine max Merr.) oil"
+    },
+    {
+        "id": "ingredient_spinach",
+        "type": "Ingredient",
+        "name": "Spinach (Spinacia oleracea) leaf extract"
+    },
+    {
+        "id": "ingredient_spirulina",
+        "type": "Ingredient",
+        "name": "Spirulina (Arthrospira)"
+    },
+    {
+        "id": "ingredient_stevia",
+        "type": "Ingredient",
+        "name": "Stevia (steviol glycosides)"
+    },
+    {
+        "id": "ingredient_sunvital",
+        "type": "Ingredient",
+        "name": "SunVital\u00ae"
+    },
+    {
+        "id": "ingredient_sunflower",
+        "type": "Ingredient",
+        "name": "Sunflower oil (Helianthus annuus)"
+    },
+    {
+        "id": "ingredient_sunflower_with_rosehip",
+        "type": "Ingredient",
+        "name": "Sunflower oil with rosehip fruit extract"
+    },
+    {
+        "id": "ingredient_sunflower_with_sea_buckthorn",
+        "type": "Ingredient",
+        "name": "Sunflower oil with sea-buckthorn extract"
+    },
+    {
+        "id": "ingredient_sweet_almond",
+        "type": "Ingredient",
+        "name": "Sweet Almond Oil"
+    },
+    {
+        "id": "ingredient_trehalose",
+        "type": "Ingredient",
+        "name": "Trehalose"
+    },
+    {
+        "id": "ingredient_turmeric_rhizome",
+        "type": "Ingredient",
+        "name": "Turmeric (Curcuma longa) rhizome extract"
+    },
+    {
+        "id": "ingredient_urea",
+        "type": "Ingredient",
+        "name": "Urea"
+    },
+    {
+        "id": "ingredient_vanilla_aroma",
+        "type": "Ingredient",
+        "name": "Vanilla aroma"
+    },
+    {
+        "id": "ingredient_vilcacora",
+        "type": "Ingredient",
+        "name": "Vilcacora (Uncaria tomentosa) extract"
+    },
+    {
+        "id": "ingredient_vitamin_a",
+        "type": "Ingredient",
+        "name": "Vitamin A"
+    },
+    {
+        "id": "ingredient_vitamin_c",
+        "type": "Ingredient",
+        "name": "Vitamin C"
+    },
+    {
+        "id": "ingredient_vitamin_d",
+        "type": "Ingredient",
+        "name": "Vitamin D"
+    },
+    {
+        "id": "ingredient_vitamin_e",
+        "type": "Ingredient",
+        "name": "Vitamin E"
+    },
+    {
+        "id": "ingredient_vitamin_f",
+        "type": "Ingredient",
+        "name": "Vitamin F"
+    },
+    {
+        "id": "ingredient_vitamins_from_group_b",
+        "type": "Ingredient",
+        "name": "Vitamins from group B (B2, B6, B12)"
+    },
+    {
+        "id": "ingredient_watts_up",
+        "type": "Ingredient",
+        "name": "WATTS\u2019UP\u00ae"
+    },
+    {
+        "id": "ingredient_walnut",
+        "type": "Ingredient",
+        "name": "Walnut oil (Juglans regia)"
+    },
+    {
+        "id": "ingredient_wheat_germ",
+        "type": "Ingredient",
+        "name": "Wheat germ oil (Triticum aestivum)"
+    },
+    {
+        "id": "ingredient_white_mulberry",
+        "type": "Ingredient",
+        "name": "White mulberry (Morus alba) leaf extract"
+    },
+    {
+        "id": "ingredient_wild_teasel",
+        "type": "Ingredient",
+        "name": "Wild teasel (Dipsacus fullonum) fruit extract"
+    },
+    {
+        "id": "ingredient_young_barley",
+        "type": "Ingredient",
+        "name": "Young barley (Hordeum vulgare) extract"
+    },
+    {
+        "id": "ingredient_young_barley_grass",
+        "type": "Ingredient",
+        "name": "Young barley (Hordeum vulgare) grass extract"
+    },
+    {
+        "id": "ingredient_yuzu",
+        "type": "Ingredient",
+        "name": "Yuzu (Citrus junos) fruit juice"
+    },
+    {
+        "id": "ingredient_zeaxanthin",
+        "type": "Ingredient",
+        "name": "Zeaxanthin (from Mexican marigold (Tagetes erecta) extract)"
+    },
+    {
+        "id": "ingredient_zinc",
+        "type": "Ingredient",
+        "name": "Zinc"
+    },
+    {
+        "id": "product_D1",
+        "type": "Product",
+        "name": "DuoLife Day and Night",
+        "category": "Diatary Suplement",
+        "link": "https://myduolife.com/shop/products/1/76,zestaw-duolife-dzien-i-noc.html?__language=pl"
+    },
+    {
+        "id": "product_D2",
+        "type": "Product",
+        "name": "DuoLife Vita C",
+        "category": "Diatary Suplement",
+        "link": "https://myduolife.com/shop/products/1/272,duolife-vita-c.html"
+    },
+    {
+        "id": "product_D3",
+        "type": "Product",
+        "name": "DuoLife Collagen",
+        "category": "Diatary Suplement",
+        "link": "https://myduolife.com/shop/products/1/317,0,duolife-collagen.html"
+    },
+    {
+        "id": "product_D4",
+        "type": "Product",
+        "name": "DuoLife Aloes",
+        "category": "Diatary Suplement",
+        "link": "https://myduolife.com/shop/products/1/302,duolife-aloe.html"
+    },
+    {
+        "id": "product_D5",
+        "type": "Product",
+        "name": "DuoLife Chlorofil",
+        "category": "Diatary Suplement",
+        "link": "https://myduolife.com/shop/products/1/285,duolife-chlorofil.html"
+    },
+    {
+        "id": "product_D6",
+        "type": "Product",
+        "name": "DuoLife Keratin Hair Complex",
+        "category": "Diatary Suplement",
+        "link": "https://myduolife.com/shop/products/1/780,duolife-keratin-hair-complex.html"
+    },
+    {
+        "id": "product_D7",
+        "type": "Product",
+        "name": "DuoLife My Blood Moja Krew",
+        "category": "Diatary Suplement",
+        "link": "http://myduolife.com/shop/products/1/2262,duolife-my-blood-gwarancja-satysfakcji.html?__language=pl"
+    },
+    {
+        "id": "product_D8",
+        "type": "Product",
+        "name": "DuoLife RegenOil Liquid Gold\u00ae",
+        "category": "Diatary Suplement",
+        "link": "https://myduolife.com/shop/products/1/550,duolife-regenoil-liquid-gold.html?__language=pl"
+    },
+    {
+        "id": "product_D9",
+        "type": "Product",
+        "name": "DuoLife Natural Kids Formula SunVital\u00ae",
+        "category": "Diatary Suplement",
+        "link": "https://myduolife.com/shop/products/1/639,sunvital.html?__language=pl"
+    },
+    {
+        "id": "product_D10",
+        "type": "Product",
+        "name": "DuoLife Medical Formula BorelissPro\u00ae",
+        "category": "Diatary Suplement",
+        "link": "https://myduolife.com/shop/products/1/660,borelisspro.html?__language=pl"
+    },
+    {
+        "id": "product_D11",
+        "type": "Product",
+        "name": "DuoLife Medical Formula ProStik\u00ae",
+        "category": "Diatary Suplement",
+        "link": "https://myduolife.com/shop/products/1/657,prostik.html?__language=pl"
+    },
+    {
+        "id": "product_D12",
+        "type": "Product",
+        "name": "DuoLife Medical Formula ProSelect\u00ae",
+        "category": "Diatary Suplement",
+        "link": "https://myduolife.com/shop/products/1/646,proselect.html?__language=pl"
+    },
+    {
+        "id": "product_D13",
+        "type": "Product",
+        "name": "DuoLife Medical Formula ProSlimer\u00ae",
+        "category": "Diatary Suplement",
+        "link": "https://myduolife.com/shop/products/1/776,duolife-medical-formula-prodeacid-new.html"
+    },
+    {
+        "id": "product_D14",
+        "type": "Product",
+        "name": "DuoLife Medical Formula ProDeacid\u00ae",
+        "category": "Diatary Suplement",
+        "link": "https://myduolife.com/shop/products/1/776,duolife-medical-formula-prodeacid-new.html"
+    },
+    {
+        "id": "product_D15",
+        "type": "Product",
+        "name": "DuoLife Medical Formula ProRelaxin\u00ae",
+        "category": "Diatary Suplement",
+        "link": "https://myduolife.com/shop/products/1/680,prorelaxin.html?__language=pl"
+    },
+    {
+        "id": "product_D16",
+        "type": "Product",
+        "name": "DuoLife Medical Formula ProMigren\u00ae",
+        "category": "Diatary Suplement",
+        "link": "https://myduolife.com/shop/products/1/786,promigren.html?__language=pl"
+    },
+    {
+        "id": "product_D17",
+        "type": "Product",
+        "name": "DuoLife Medical Formula ProCholterol\u00ae",
+        "category": "Diatary Suplement",
+        "link": "https://myduolife.com/shop/products/1/785,procholterol.html?__language=pl"
+    },
+    {
+        "id": "product_D18",
+        "type": "Product",
+        "name": "DuoLife Medical Formula ProSugar\u00ae",
+        "category": "Diatary Suplement",
+        "link": "https://myduolife.com/shop/products/1/784,prosugar.html?__language=pl"
+    },
+    {
+        "id": "product_D19",
+        "type": "Product",
+        "name": "DuoLife Clinical Formula ProOptical\u00ae",
+        "category": "Diatary Suplement",
+        "link": "https://myduolife.com/shop/products/1/713,prooptical.html?__language=pl"
+    },
+    {
+        "id": "product_D20",
+        "type": "Product",
+        "name": "DuoLife Medical Formula ProImmuno\u00ae",
+        "category": "Diatary Suplement",
+        "link": "https://myduolife.com/shop/products/1/1073,proimmuno.html?__language=pl"
+    },
+    {
+        "id": "product_D21",
+        "type": "Product",
+        "name": "SHAPE CODE\u00ae Slim Shake",
+        "category": "Diatary Suplement",
+        "link": "https://myduolife.com/shop/products/120/1196,shape-code-slim-shake-750g.html?__language=pl"
+    },
+    {
+        "id": "product_D22",
+        "type": "Product",
+        "name": "DuoLife Clinical Formula ProBactilardii\u00ae",
+        "category": "Diatary Suplement",
+        "link": "https://myduolife.com/shop/products/1/1217,probactilardii.html?__language=pl"
+    },
+    {
+        "id": "product_D23",
+        "type": "Product",
+        "name": "SHAPE CODE\u00ae Protein Shake",
+        "category": "Diatary Suplement",
+        "link": "https://myduolife.com/shop/products/120/2297,shape-code-protein-shake-700g.html"
+    },
+    {
+        "id": "product_D24",
+        "type": "Product",
+        "name": "DuoLife Fiber Powder",
+        "category": "Diatary Suplement",
+        "link": "https://myduolife.com/shop/products/1/1642,duolife-fiber-powder-15-x-10g.html"
+    },
+    {
+        "id": "product_D25",
+        "type": "Product",
+        "name": "DuoLife Fiber",
+        "category": "Diatary Suplement",
+        "link": "https://myduolife.com/shop/products/1/1279,duolife-fiber.html"
+    },
+    {
+        "id": "product_D26",
+        "type": "Product",
+        "name": "DuoLife My Mind",
+        "category": "Diatary Suplement",
+        "link": "https://myduolife.com/shop/products/1/1387,duolife-my-mind.html?__language=pl"
+    },
+    {
+        "id": "product_D27",
+        "type": "Product",
+        "name": "DuoLife My Gastrin",
+        "category": "Diatary Suplement",
+        "link": "https://myduolife.com/shop/products/1/1423,duolife-my-gastrin.html?__language=pl"
+    },
+    {
+        "id": "product_D28",
+        "type": "Product",
+        "name": "DuoLife Vita C Powder",
+        "category": "Diatary Suplement",
+        "link": "https://myduolife.com/shop/products/1/1587,duolife-collagen-powder-15-x-10-8g.html?__language=pl"
+    },
+    {
+        "id": "product_D29",
+        "type": "Product",
+        "name": "DuoLife Collagen Powder",
+        "category": "Diatary Suplement",
+        "link": "https://myduolife.com/shop/products/1/1587,duolife-collagen-powder-15-x-10-8g.html?__language=pl"
+    },
+    {
+        "id": "product_D30",
+        "type": "Product",
+        "name": "DuoLife Medical Formula ProOptical\u00ae",
+        "category": "Diatary Suplement",
+        "link": "https://myduolife.com/shop/products/1/713,prooptical.html?__language=pl"
+    },
+    {
+        "id": "product_F32",
+        "type": "Product",
+        "name": "DuoLife Boost Formula FIZZY EASY Mg + K + B COMPLEX",
+        "category": "Dietary Supplement",
+        "link": "https://myduolife.com/shop/products/154/1442,fizzy-easy-mg-k-b-complex.html?srsltid=AfmBOopCrqbE9iIk7SJRTTaKK81Dh3w9_7mTAC8tiNI0EFkakBL22teE"
+    },
+    {
+        "id": "product_F33",
+        "type": "Product",
+        "name": "DuoLife Boost Formula FIZZY EASY Energy COMPLEX",
+        "category": "Dietary Supplement",
+        "link": "https://myduolife.com/shop/products/154/1440,fizzy-easy-energy-complex.html?srsltid=AfmBOorlnjpM585gHkONvaWlIm6PXZe7Jei0cX8_Ljj2x66_S3xZnVmU"
+    },
+    {
+        "id": "product_F34",
+        "type": "Product",
+        "name": "DuoLife Boost Formula FIZZY EASY Electrolyte COMPLEX",
+        "category": "Dietary Supplement",
+        "link": "https://myduolife.com/shop/products/154/1439,fizzy-easy-electrolyte-complex.html?srsltid=AfmBOoqg0UcnEnobrw6Sg52R722Aiy8Gap1kJZiOuhrO8bWRpvgXY2q3"
+    },
+    {
+        "id": "product_F35",
+        "type": "Product",
+        "name": "DuoLife Boost Formula FIZZY EASY Ca + D3 COMPLEX",
+        "category": "Dietary Supplement",
+        "link": "https://myduolife.com/shop/products/154/1443,fizzy-easy-ca-d3-complex.html?srsltid=AfmBOooF1ZDHnOFRLjmYAZvyb8RbBD4AB8avenBnh2EJ6NNLSEAhPDVr"
+    },
+    {
+        "id": "product_F36",
+        "type": "Product",
+        "name": "DUOLIFE Boost Formula FIZZY EASY Q10 COMPLEX",
+        "category": "Dietary Supplement",
+        "link": "https://myduolife.com/shop/products/154/1811,fizzy-easy-q10-complex.html?srsltid=AfmBOoqi1MqznyhdQpA8Cf9bgA1MgBb8xgiyV0JEDwoM55UthfWKqUZP"
+    },
+    {
+        "id": "product_F37",
+        "type": "Product",
+        "name": "DUOLIFE Boost Formula FIZZY EASY L-arginine COMPLEX",
+        "category": "Dietary Supplement",
+        "link": "https://myduolife.com/shop/products/154/1812,fizzy-easy-l-arginine-complex.html?srsltid=AfmBOopB-G2yPaMzc0QowwV5b0r9y8ylmRq4JQgqMOosRXuglRnbDgwe"
+    },
+    {
+        "id": "product_C38",
+        "type": "Product",
+        "name": "Pro Aloe Day Cream",
+        "category": "Aloe Facial Care",
+        "link": "https://myduolife.com/shop/products/179/2419,aloe-day-cream-50ml-special-offer.html?srsltid=AfmBOooemnERp7dcn4ydYY_75--7EXWgjfpM_odpxsSUHl1BvudRc_44"
+    },
+    {
+        "id": "product_C39",
+        "type": "Product",
+        "name": "Pro Aloe Night Cream",
+        "category": "Aloe Facial Care",
+        "link": "https://myduolife.com/shop/products/151/2420,aloe-night-cream-50ml-special-offer.html?srsltid=AfmBOor0lHZLfVO72-YoC9k4kyqS9VkzEM5iLTwbI-JRklxDPShDNyFI"
+    },
+    {
+        "id": "product_C40",
+        "type": "Product",
+        "name": "Pro Aloe Face Cleansing Gel",
+        "category": "Aloe Facial Care",
+        "link": "https://myduolife.com/shop/products/151/1629,aloe-cleansing-gel-200ml.html?srsltid=AfmBOorFRvTUfOYkfYxhT75tnqwyASU8PwEIGmY7d0RyaCa9nN_SJFXI"
+    },
+    {
+        "id": "product_C41",
+        "type": "Product",
+        "name": "Pro Aloe Daily Shampoo",
+        "category": "Aloe Body Care",
+        "link": "https://myduolife.com/shop/products/180/2422,aloe-daily-shampoo-210ml-special-offer.html?srsltid=AfmBOora04dcqufWo9UngGLejOllMWzXUjZTZcP-2cD2-qf17DNMWYac"
+    },
+    {
+        "id": "product_C42",
+        "type": "Product",
+        "name": "Pro Aloe Shower Gel",
+        "category": "Aloe Body Care",
+        "link": "https://myduolife.com/shop/products/179/2423,aloe-shower-gel-200ml-special-offer.html?srsltid=AfmBOooyPVFmAh6vFHhfcRVsWddsYXqMNeH0qSeXQp5kGyDAeAOdgC9H"
+    },
+    {
+        "id": "product_C43",
+        "type": "Product",
+        "name": "Pro Vita C Body Scrub",
+        "category": "Vitamin Body Care",
+        "link": "https://myduolife.com/shop/products/81/1644,vita-c-body-scrub-200ml.html?srsltid=AfmBOor-jCLAf5aIyPooHQdQRm37ea7_N7Rq7ZxCMphWWcDypA41Cqzi"
+    },
+    {
+        "id": "product_C44",
+        "type": "Product",
+        "name": "Pro Vita C Hand Cream",
+        "category": "Hand Care",
+        "link": "https://myduolife.com/shop/products/81/2229,vita-c-hand-cream-75-ml-super-offer.html?srsltid=AfmBOordFWD0KTum4fTt6Z3x_InItydCT01OIBmKlUtBjqClzpKGjaFP"
+    },
+    {
+        "id": "product_C45",
+        "type": "Product",
+        "name": "Pro Collagen Body Butter",
+        "category": "Collagen Body Care",
+        "link": "https://myduolife.com/shop/products/81/2342,collagen-body-butter-200-ml-special-offer.html?srsltid=AfmBOopVWqEHRucNiaorKCduPBw3tsV-mzquK2A5UGXPi-miwL_mS56G"
+    },
+    {
+        "id": "product_C46",
+        "type": "Product",
+        "name": "Pro Collagen Face Peeling 2in1",
+        "category": "Collagen Facial Care",
+        "link": "https://myduolife.com/shop/products/150/2256,collagen-face-peeling-2-in-1-50-ml.html?srsltid=AfmBOoruRXcBh2gwYknbOo--KmIH2WZjOgjMGKi2YGWP0Uase_7PGMhh"
+    },
+    {
+        "id": "product_C47",
+        "type": "Product",
+        "name": "Pro Collagen Day Cream",
+        "category": "Collagen Facial Care",
+        "link": "https://myduolife.com/shop/products/150/1631,collagen-day-cream-50ml.html?srsltid=AfmBOooT-HrJak0wH2njNqTyXUDa_dL_BPGJOs7WmmFtbN70JEqZ8j_G"
+    },
+    {
+        "id": "product_C48",
+        "type": "Product",
+        "name": "Pro Collagen Night Cream",
+        "category": "Collagen Facial Care",
+        "link": "https://myduolife.com/shop/products/150/1632,collagen-night-cream-50ml.html?srsltid=AfmBOooM5pc2P0AWPeRZqniJKroBei4CuBzMrZuIZUsq8Vhjai18nYlV"
+    },
+    {
+        "id": "product_C49",
+        "type": "Product",
+        "name": "Pro Collagen Face Mist Toner",
+        "category": "Collagen Facial Care",
+        "link": "https://myduolife.com/shop/products/150/2255,collagen-face-mist-toner-100ml.html?srsltid=AfmBOoosX7LCST04vUpwqsN2IncKqdrj_6xw4asuZ3tB-3g6Nv-s77x-"
+    },
+    {
+        "id": "product_C50",
+        "type": "Product",
+        "name": "Pro Collagen Face Serum",
+        "category": "Collagen Facial Care",
+        "link": "https://myduolife.com/shop/products/150/1708,collagen-face-serum-30-ml.html?srsltid=AfmBOooQxMcCrUYY8fzWYe0haXJ-990HHX1iVbJgJxrEjknLpa4trWBy"
+    },
+    {
+        "id": "product_C51",
+        "type": "Product",
+        "name": "Pro Collagen Face Mask",
+        "category": "Collagen Facial Care",
+        "link": "https://myduolife.com/shop/products/150/1707,collagen-face-mask-50-ml.html?srsltid=AfmBOorVTSYNrRPPu5-dl3Idy0ey2fJuZ5j-ivZd_33dfO0XhLXXevmv"
+    },
+    {
+        "id": "product_C52",
+        "type": "Product",
+        "name": "Pro Collagen Elixir Rose",
+        "category": "Collagen Facial Care",
+        "link": "https://myduolife.com/shop/products/179/2238,collagen-elixir-rose-30-ml-special-offer.html?srsltid=AfmBOopXOlc7e09SSz8U2dtXzUWN0jHB87OLtsXq_d4x5HuL9HXlVMDc"
+    },
+    {
+        "id": "product_C53",
+        "type": "Product",
+        "name": "Pro Collagen Face Platinum",
+        "category": "Collagen Facial Care",
+        "link": "https://myduolife.com/shop/products/179/2261,pro-collagen-face-platinum-50-ml-special-offer.html?srsltid=AfmBOoofLA91Mk4ii4rQPkoVYJHA1poYFL4XrCbYzy2qFwtABui4GC6j"
+    },
+    {
+        "id": "product_C54",
+        "type": "Product",
+        "name": "Pro Collagen Body Silver",
+        "category": "Collagen Body Care",
+        "link": "https://myduolife.com/shop/products/150/2260,pro-collagen-body-silver-100-ml-special-offer.html?srsltid=AfmBOoqwXFmzSt5TGJTk32RN48_QmuCqWNsasaRCn0GYuXs7JmP_9aRf"
+    },
+    {
+        "id": "product_C55",
+        "type": "Product",
+        "name": "Pro Keratin Hair Complex Shampoo",
+        "category": "Keratin Hair Care",
+        "link": "https://myduolife.com/shop/products/81/1564,keratin-hair-complex-shampoo-200ml.html?srsltid=AfmBOoo0sibNlKqoI_9kedERYmfZ2O_-B6OabMP5UuhGwruNVNv53nzO"
+    },
+    {
+        "id": "product_C56",
+        "type": "Product",
+        "name": "Pro Keratin Hair Complex Conditioner",
+        "category": "Keratin Hair Care",
+        "link": "https://myduolife.com/shop/products/81/1565,keratin-hair-complex-conditioner-200ml.html?srsltid=AfmBOooIQwMhAgPFOsAoFy-O0elU8heoVE4zFcooPqProlcgufAMxlXm"
+    },
+    {
+        "id": "product_C57",
+        "type": "Product",
+        "name": "LAZIZAL\u00ae Rich Advanced Face Lifting Cream",
+        "category": "Anti-Aging Care",
+        "link": "https://myduolife.com/shop/products/118/2456,lazizal-face-lifting-cream-50-ml-special-offer.html?srsltid=AfmBOopZeRqQvxHhiQYetmrCnU79vcWHlCBdmcrXBW9dP2xyZtELGBeP"
+    },
+    {
+        "id": "product_C58",
+        "type": "Product",
+        "name": "LAZIZAL\u00ae Rich Advanced Face Lifting Serum",
+        "category": "Anti-Aging Care",
+        "link": "https://myduolife.com/shop/products/165/1135,lazizal-face-lift-serum-10-ml.html?srsltid=AfmBOopOlWhXKXGnTVfIYDKWE80tBnANrvGpcFGP9VX2bG592ufs9_xT"
+    },
+    {
+        "id": "cosmetic_1",
+        "type": "Cosmetic",
+        "name": "Pro Vita C Hand Cream",
+        "product_type": "Hand Cream"
+    },
+    {
+        "id": "cosmetic_2",
+        "type": "Cosmetic",
+        "name": "Pro Vita C Body Scrub",
+        "product_type": "Body Scrub"
+    },
+    {
+        "id": "cosmetic_3",
+        "type": "Cosmetic",
+        "name": "Pro Aloe Shower Gel",
+        "product_type": "Shower Gel"
+    },
+    {
+        "id": "cosmetic_4",
+        "type": "Cosmetic",
+        "name": "Pro Aloe Night Cream",
+        "product_type": "Night Cream"
+    },
+    {
+        "id": "cosmetic_5",
+        "type": "Cosmetic",
+        "name": "LAZIZAL\u00ae Advanced Face Lifting Serum",
+        "product_type": "Face Serum"
+    },
+    {
+        "id": "cosmetic_6",
+        "type": "Cosmetic",
+        "name": "LAZIZAL\u00ae Advanced Face Lifting Cream",
+        "product_type": "Face Cream"
+    },
+    {
+        "id": "cosmetic_7",
+        "type": "Cosmetic",
+        "name": "Pro Keratin Hair Complex Shampoo",
+        "product_type": "Shampoo"
+    },
+    {
+        "id": "cosmetic_8",
+        "type": "Cosmetic",
+        "name": "Pro Keratin Hair Complex Conditioner",
+        "product_type": "Hair Conditioner"
+    },
+    {
+        "id": "cosmetic_9",
+        "type": "Cosmetic",
+        "name": "Pro Collagen Night Cream",
+        "product_type": "Night Cream"
+    },
+    {
+        "id": "cosmetic_10",
+        "type": "Cosmetic",
+        "name": "Pro Collagen Face Serum",
+        "product_type": "Face Serum"
+    },
+    {
+        "id": "cosmetic_11",
+        "type": "Cosmetic",
+        "name": "Pro Collagen Face Peeling 2 in 1",
+        "product_type": "Face Peeling"
+    },
+    {
+        "id": "cosmetic_12",
+        "type": "Cosmetic",
+        "name": "Pro Collagen Face Mist Toner",
+        "product_type": "Face Mist Toner"
+    },
+    {
+        "id": "cosmetic_13",
+        "type": "Cosmetic",
+        "name": "Pro Collagen Face Mask",
+        "product_type": "Face Mask"
+    },
+    {
+        "id": "cosmetic_14",
+        "type": "Cosmetic",
+        "name": "Pro Collagen Elixir Rose",
+        "product_type": "Face Elixir"
+    },
+    {
+        "id": "cosmetic_15",
+        "type": "Cosmetic",
+        "name": "Pro Collagen Day Cream",
+        "product_type": "Day Cream"
+    },
+    {
+        "id": "cosmetic_16",
+        "type": "Cosmetic",
+        "name": "Aloe Body Butter",
+        "product_type": "Body Butter"
+    },
+    {
+        "id": "cosmetic_17",
+        "type": "Cosmetic",
+        "name": "Aloe Shower Gel",
+        "product_type": "Shower Gel"
+    },
+    {
+        "id": "cosmetic_18",
+        "type": "Cosmetic",
+        "name": "Pro Aloe Daily Shampoo",
+        "product_type": "Shampoo"
+    },
+    {
+        "id": "cosmetic_19",
+        "type": "Cosmetic",
+        "name": "Pro Aloe Day Cream",
+        "product_type": "Day Cream"
+    },
+    {
+        "id": "cosmetic_20",
+        "type": "Cosmetic",
+        "name": "Pro Aloe Face Cleansing Gel",
+        "product_type": "Face Cleansing Gel"
+    }
+]

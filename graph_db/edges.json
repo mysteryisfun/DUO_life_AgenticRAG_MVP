@@ -1,0 +1,1357 @@
+[
+    {
+        "source": "product_D1",
+        "target": "ingredient_grape",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D1",
+        "target": "ingredient_dog_rose_and",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D1",
+        "target": "ingredient_one_hawthorn",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D1",
+        "target": "ingredient_large_cranberry",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D1",
+        "target": "ingredient_pomegranate",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D1",
+        "target": "ingredient_noni",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D1",
+        "target": "ingredient_sea_buckthorn",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D1",
+        "target": "ingredient_raspberry",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D1",
+        "target": "ingredient_acai_berry",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D1",
+        "target": "ingredient_alfalfa",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D1",
+        "target": "ingredient_ginseng",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D1",
+        "target": "ingredient_aloe",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D1",
+        "target": "ingredient_plum",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D1",
+        "target": "ingredient_chokeberry",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D1",
+        "target": "ingredient_acerola",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D1",
+        "target": "ingredient_goji_berry",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D1",
+        "target": "ingredient_artichoke",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D1",
+        "target": "ingredient_alfalfa",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D1",
+        "target": "ingredient_lemon_balm",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D1",
+        "target": "ingredient_white_mulberry",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D1",
+        "target": "ingredient_milk_thistle",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D1",
+        "target": "ingredient_nettle",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D1",
+        "target": "ingredient_cat_s_claw_stem",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D2",
+        "target": "ingredient_acerola",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D2",
+        "target": "ingredient_camu_camu_berry",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D3",
+        "target": "ingredient_mango_puree",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D3",
+        "target": "ingredient_chondroitin_sulfate",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D3",
+        "target": "ingredient_glucosamine_sulfate",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D3",
+        "target": "ingredient_nettle",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D3",
+        "target": "ingredient_horsetail",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D3",
+        "target": "ingredient_bamboo_shoot",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D4",
+        "target": "ingredient_aloe_with_pulp",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D4",
+        "target": "ingredient_honey",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D4",
+        "target": "ingredient_oregano",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D5",
+        "target": "ingredient_chlorophyllin",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D5",
+        "target": "ingredient_young_barley",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D5",
+        "target": "ingredient_chlorella",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D6",
+        "target": "ingredient_guava_puree",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D6",
+        "target": "ingredient_raspberry",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D6",
+        "target": "ingredient_black_rice_flower",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D6",
+        "target": "ingredient_organic_pea_sprout",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D6",
+        "target": "ingredient_solubilized_keratin",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D6",
+        "target": "ingredient_amla",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D6",
+        "target": "ingredient_nettle",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D6",
+        "target": "ingredient_field_horsetail",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D6",
+        "target": "ingredient_blackcurrant",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D7",
+        "target": "ingredient_red_grape",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D7",
+        "target": "ingredient_acerola",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D7",
+        "target": "ingredient_spinach",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D7",
+        "target": "ingredient_vitamin_a",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D7",
+        "target": "ingredient_vitamin_d",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D8",
+        "target": "ingredient_vitamin_e",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D8",
+        "target": "ingredient_vitamin_c",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D8",
+        "target": "ingredient_folic_acid",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D8",
+        "target": "ingredient_iron",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D8",
+        "target": "ingredient_zinc",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D8",
+        "target": "ingredient_copper",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D8",
+        "target": "ingredient_manganese",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D8",
+        "target": "ingredient_selenium",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D8",
+        "target": "ingredient_molybdenum",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D8",
+        "target": "ingredient_iodine",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D8",
+        "target": "ingredient_sunflower",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D8",
+        "target": "ingredient_lin",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D8",
+        "target": "ingredient_corn",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D8",
+        "target": "ingredient_sunflower_with_sea_buckthorn",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D8",
+        "target": "ingredient_walnut",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D9",
+        "target": "ingredient_sunflower_with_rosehip",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D9",
+        "target": "ingredient_wheat_germ",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D9",
+        "target": "ingredient_sesame",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D9",
+        "target": "ingredient_macadamia_nut",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D9",
+        "target": "ingredient_cedar_nut",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D9",
+        "target": "ingredient_natural_vitamin_k2_mk7",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D9",
+        "target": "ingredient_red_grape_concentrate",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D10",
+        "target": "ingredient_blackberry_concentrate",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D10",
+        "target": "ingredient_elderberry",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D10",
+        "target": "ingredient_honey",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D10",
+        "target": "ingredient_acerola",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D10",
+        "target": "ingredient_sunvital",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D10",
+        "target": "ingredient_green_propolis",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D11",
+        "target": "ingredient_pumpkin",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D11",
+        "target": "ingredient_garlic",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D11",
+        "target": "ingredient_green_chireta",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D11",
+        "target": "ingredient_chicory_inulin",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D11",
+        "target": "ingredient_pink_rock_rose",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D11",
+        "target": "ingredient_borelisspro",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D11",
+        "target": "ingredient_wild_teasel",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D11",
+        "target": "ingredient_garlic_stem",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D12",
+        "target": "ingredient_oregano",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D12",
+        "target": "ingredient_fallopia_japonica",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D12",
+        "target": "ingredient_chicory_inulin",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D12",
+        "target": "ingredient_vilcacora",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D12",
+        "target": "ingredient_graviola",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D12",
+        "target": "ingredient_proselect",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D12",
+        "target": "ingredient_reishi_mushroom",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D13",
+        "target": "ingredient_shiitake_mushroom",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D13",
+        "target": "ingredient_apricot",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D13",
+        "target": "ingredient_chicory_inulin",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D13",
+        "target": "ingredient_garcinia_cambogia",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D13",
+        "target": "ingredient_bioslimer",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D13",
+        "target": "ingredient_acai",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D13",
+        "target": "ingredient_goji",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D13",
+        "target": "ingredient_young_barley_grass",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D13",
+        "target": "ingredient_green_coffee",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D14",
+        "target": "ingredient_gotu_kola",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D14",
+        "target": "ingredient_chicory_inulin",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D14",
+        "target": "ingredient_red_beet",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D14",
+        "target": "ingredient_eggplant",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D14",
+        "target": "ingredient_mango",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D14",
+        "target": "ingredient_kiwi",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D14",
+        "target": "ingredient_prodeacid",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D14",
+        "target": "ingredient_grape",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D15",
+        "target": "ingredient_millet",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D15",
+        "target": "ingredient_chicory_inulin",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D15",
+        "target": "ingredient_prorelaxin",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D15",
+        "target": "ingredient_hop_cones",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D15",
+        "target": "ingredient_lemon_balm_leaves",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D15",
+        "target": "ingredient_lavender_flower",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D15",
+        "target": "ingredient_saffron_flower",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D15",
+        "target": "ingredient_l_tryptophan",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D15",
+        "target": "ingredient_maca",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D15",
+        "target": "ingredient_spirulina",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D16",
+        "target": "ingredient_chicory_inulin",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D16",
+        "target": "ingredient_promigren",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D16",
+        "target": "ingredient_feverfew",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D16",
+        "target": "ingredient_golden",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D16",
+        "target": "ingredient_evening_primrose",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D16",
+        "target": "ingredient_riboflavin",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D17",
+        "target": "ingredient_chicory_inulin",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D17",
+        "target": "ingredient_red_yeast_rice",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D17",
+        "target": "ingredient_procholterol",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D17",
+        "target": "ingredient_garlic",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D17",
+        "target": "ingredient_gynostemma_pentaphyllum",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D17",
+        "target": "ingredient_phytosterols",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D17",
+        "target": "ingredient_brahmi",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D18",
+        "target": "ingredient_chicory_inulin",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D18",
+        "target": "ingredient_prosugar",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D18",
+        "target": "ingredient_common_chicory",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D18",
+        "target": "ingredient_white_mulberry",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D18",
+        "target": "ingredient_cinnamon_bark",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D18",
+        "target": "ingredient_bean_pod",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D18",
+        "target": "ingredient_goat_s_rue",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D18",
+        "target": "ingredient_maqui_berry",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D19",
+        "target": "ingredient_organic_perilla",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D19",
+        "target": "ingredient_green_microalgae",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D19",
+        "target": "ingredient_chinese_magnolia_vine",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D19",
+        "target": "ingredient_bilberry",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D19",
+        "target": "ingredient_elderberry",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D19",
+        "target": "ingredient_black_chokeberry",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D19",
+        "target": "ingredient_zeaxanthin",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D20",
+        "target": "ingredient_saffron_stamen",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D20",
+        "target": "ingredient_proimmuno",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D20",
+        "target": "ingredient_organic_zinc",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D20",
+        "target": "ingredient_chicory_inulin",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D20",
+        "target": "ingredient_propolis",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D20",
+        "target": "ingredient_green_propolis",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D20",
+        "target": "ingredient_red_sage",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D21",
+        "target": "ingredient_micronized_natural_beta_carotene_crystals",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D21",
+        "target": "ingredient_saccharomyces_cerevisiae_yeast_protein",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D21",
+        "target": "ingredient_chickpea_protein",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D21",
+        "target": "ingredient_erythritol",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D21",
+        "target": "ingredient_medium_chain_triglycerides",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D21",
+        "target": "ingredient_pectins",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D21",
+        "target": "ingredient_inulin",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D21",
+        "target": "ingredient_acacia_fiber",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D21",
+        "target": "ingredient_vanilla_aroma",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D22",
+        "target": "ingredient_slendacor",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D22",
+        "target": "ingredient_natural_cream_flavor",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D22",
+        "target": "ingredient_purple_mangosteen",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D22",
+        "target": "ingredient_matcha_green_tea_ed_leaves",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D22",
+        "target": "ingredient_stevia",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D22",
+        "target": "ingredient_bifidobacterium_bifidum_rosell_r0071",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D22",
+        "target": "ingredient_bifidobacterium_longum_rosell_r0175",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D23",
+        "target": "ingredient_lactobacillus_helveticus_rosell_r0052",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D23",
+        "target": "ingredient_lacticaseibacillus_rhamnosus_rosell_r0011",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D23",
+        "target": "ingredient_saccharomyces_boulardii_cncm_i_1079",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D23",
+        "target": "ingredient_acacia_fiber",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D23",
+        "target": "ingredient_butyric_acid",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D24",
+        "target": "ingredient_palatinose",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D24",
+        "target": "ingredient_natural_cream_flavor",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D24",
+        "target": "ingredient_natural_vanilla_flavor",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D24",
+        "target": "ingredient_natural_vanilla_flavor",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D25",
+        "target": "ingredient_salt",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D25",
+        "target": "ingredient_stevia",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D25",
+        "target": "ingredient_nutriose",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D25",
+        "target": "ingredient_sunfiber",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D25",
+        "target": "ingredient_inavea_baobab_acacia",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D25",
+        "target": "ingredient_immunel",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D26",
+        "target": "ingredient_apple",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D26",
+        "target": "ingredient_apple_puree",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D26",
+        "target": "ingredient_lemon_concentrate",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D26",
+        "target": "ingredient_sunfiber",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D26",
+        "target": "ingredient_fibregum",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D26",
+        "target": "ingredient_yuzu",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D26",
+        "target": "ingredient_citrus_pectin",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D26",
+        "target": "ingredient_boswellin",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D26",
+        "target": "ingredient_konjac",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D26",
+        "target": "ingredient_astragin",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D27",
+        "target": "ingredient_dried_plum_concentrate",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D27",
+        "target": "ingredient_asafin",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D27",
+        "target": "ingredient_rose_hip",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D27",
+        "target": "ingredient_fennel",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D27",
+        "target": "ingredient_ironwort_mountain_tea",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D27",
+        "target": "ingredient_peppermint",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D27",
+        "target": "ingredient_milk_thistle",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D27",
+        "target": "ingredient_black_radish",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D27",
+        "target": "ingredient_rosemary",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D28",
+        "target": "ingredient_turmeric_rhizome",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D28",
+        "target": "ingredient_lime_concentrate",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D28",
+        "target": "ingredient_palatinose",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D28",
+        "target": "ingredient_natural_orange_flavor",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D29",
+        "target": "ingredient_phyto_c",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D29",
+        "target": "ingredient_common_buckwheat_sprout",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D29",
+        "target": "ingredient_silicon_dioxide",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D29",
+        "target": "ingredient_stevia",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D29",
+        "target": "ingredient_natural_grape_flavoring",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D29",
+        "target": "ingredient_saltwater_fish_skin_collagen",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D29",
+        "target": "ingredient_citric_acid",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D30",
+        "target": "ingredient_natural_orange_flavor",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D30",
+        "target": "ingredient_beet_red",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D30",
+        "target": "ingredient_new_zealand_green_lipped_mussel",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D30",
+        "target": "ingredient_proprietary_formula_derived_from_inactivated_saccharomyces_cerevisiae_yeast_cells",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D30",
+        "target": "ingredient_bladderwrack",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D30",
+        "target": "ingredient_natural_vitamin_d3",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D30",
+        "target": "ingredient_silicon_dioxide",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D30",
+        "target": "ingredient_natural_cranberry_flavor",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D30",
+        "target": "ingredient_stevia",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D30",
+        "target": "ingredient_micronized_lutein_crystals",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D30",
+        "target": "ingredient_micronized_zeaxanthin_crystals",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D30",
+        "target": "ingredient_saffron",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D30",
+        "target": "ingredient_green_microalgae_aplanospore",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D30",
+        "target": "ingredient_microencapsulated_natural_lycopene",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D30",
+        "target": "ingredient_organic_zinc_salts",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D30",
+        "target": "ingredient_schisandra",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D30",
+        "target": "ingredient_bilberry",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D30",
+        "target": "ingredient_elderberry",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D30",
+        "target": "ingredient_black_currant",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D30",
+        "target": "ingredient_black_chokeberry",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D30",
+        "target": "ingredient_concentrated_mixture_of_carotenoids",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D30",
+        "target": "ingredient_soybean",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_D30",
+        "target": "ingredient_saffron_stamen",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_F32",
+        "target": "ingredient_potassium_bicarbonate",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_F34",
+        "target": "ingredient_potassium_bicarbonate",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_C38",
+        "target": "ingredient_aloe_stem_cells",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_C39",
+        "target": "ingredient_aloe_stem_cells",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_C42",
+        "target": "ingredient_green_tea",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_C42",
+        "target": "ingredient_mint",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_C42",
+        "target": "ingredient_aloe_vera",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_C44",
+        "target": "ingredient_cocoa_butter",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_C44",
+        "target": "ingredient_shea_butter",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_C44",
+        "target": "ingredient_betaine",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_C44",
+        "target": "ingredient_trehalose",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_C44",
+        "target": "ingredient_allantoin",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_C44",
+        "target": "ingredient_panthenol",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_C45",
+        "target": "ingredient_collagen",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_C45",
+        "target": "ingredient_avocado",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_C45",
+        "target": "ingredient_shea_butter",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_C45",
+        "target": "ingredient_cocoa_butter",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_C45",
+        "target": "ingredient_betaine",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "product_C58",
+        "target": "ingredient_collagen",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "cosmetic_1",
+        "target": "ingredient_vitamin_e",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "cosmetic_2",
+        "target": "ingredient_vitamin_e",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "cosmetic_3",
+        "target": "ingredient_green_tea",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "cosmetic_4",
+        "target": "ingredient_aloe_stem_cells",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "cosmetic_5",
+        "target": "ingredient_munapsys",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "cosmetic_7",
+        "target": "ingredient_pea_sprout",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "cosmetic_8",
+        "target": "ingredient_avocado",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "cosmetic_9",
+        "target": "ingredient_collagen",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "cosmetic_15",
+        "target": "ingredient_collagen",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "cosmetic_16",
+        "target": "ingredient_hyaluronic_acid",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "cosmetic_17",
+        "target": "ingredient_green_tea",
+        "label": "CONTAINS"
+    },
+    {
+        "source": "cosmetic_19",
+        "target": "ingredient_aloe_stem_cells",
+        "label": "CONTAINS"
+    }
+]
