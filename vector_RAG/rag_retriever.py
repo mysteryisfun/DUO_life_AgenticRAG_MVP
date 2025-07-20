@@ -5,9 +5,9 @@ from typing import List, TypedDict
 
 from langchain_core.documents import Document
 from langchain_core.prompts import ChatPromptTemplate
-from pydantic import BaseModel, Field
+from langchain_core.pydantic_v1 import BaseModel, Field
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
-from langchain_chroma import Chroma
+from langchain_community.vectorstores import Chroma
 from langgraph.graph import StateGraph, END
 from langchain_core.output_parsers import StrOutputParser   
 
@@ -16,7 +16,7 @@ load_dotenv()
 
 CHROMA_PERSIST_DIRECTORY = "./chroma_db"
 EMBEDDING_MODEL = "text-embedding-3-small"
-LLM_MODEL = "gpt-4.1"
+LLM_MODEL = "gpt-4o"
 
 # --- 1. Define the State for our Graph ---
 class GraphState(TypedDict):
@@ -63,24 +63,23 @@ def analyze_query_node(state: GraphState):
     analyzer_chain = prompt | llm_with_tools
     structured_response = analyzer_chain.invoke({"question": question})
     
+    # ======================= FIX STARTS HERE =======================
+    # ChromaDB requires a specific syntax for combining multiple filters.
+    # We build a list of individual filter conditions.
     filter_conditions = []
     if structured_response.domain != "Unknown":
         filter_conditions.append({"domain": {"$eq": structured_response.domain}})
     if structured_response.product_type != "any":
         filter_conditions.append({"type": {"$eq": structured_response.product_type}})
         
-<<<<<<< HEAD
-    final_filters = {}
-=======
     # If we have multiple conditions, we wrap them in an "$and" operator.
     # If we have one, we use it directly. If none, it's an empty dictionary.
-    final_filters = None
->>>>>>> 1ab021f92ab31e92e80608cc10d86cd09c54cc3e
+    final_filters = {}
     if len(filter_conditions) > 1:
         final_filters = {"$and": filter_conditions}
     elif len(filter_conditions) == 1:
         final_filters = filter_conditions[0]
-
+    # ======================== FIX ENDS HERE ========================
         
     logging.info(f"  - Search Query: {structured_response.search_query}")
     logging.info(f"  - Constructed ChromaDB Filters: {final_filters}")
@@ -120,13 +119,8 @@ def generate_answer_node(state: GraphState):
     documents = state["documents"]
     
     prompt = ChatPromptTemplate.from_template("""
-    You are the DuoLife Customer Helper, a friendly and knowledgeable assistant. Your goal is to help customers find the perfect DuoLife product that fits their needs and answer their questions clearly.
-
-    Please use only the information provided in the CONTEXT below to answer the user's QUESTION. Do not make up information or use outside knowledge.
-
-    - Speak directly to the customer in a supportive and helpful tone.
-    - If the context describes a product that matches the customer's query, summarize its main benefits and explain how it could help them. Mention the product's name if it is available in the context.
-    - If the context does not contain the answer, politely state that you couldn't find the specific information and that you're ready to assist with anything else.
+    You are a helpful assistant for the DuoLife company. Answer the user's question based only on the following context.
+    If the context does not contain the answer, state that the information is not available. Be concise and clear.
 
     CONTEXT:
     {context}
@@ -171,32 +165,13 @@ def build_graph():
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
     
-    print("--- Advanced RAG with LangGraph: Interactive CLI ---")
+    print("--- Testing Advanced RAG with LangGraph ---")
     
     if "OPENAI_API_KEY" not in os.environ:
         print("OpenAI API key not found.")
     else:
         rag_app = build_graph()
-        print("\nEnter your question about DUO Life products, ingredients, or business model:")
-        print("(Type 'quit' to exit)")
-        
-        while True:
-            question = input("\nYour question: ").strip()
-            
-            if question.lower() in ['quit', 'exit', 'q']:
-                print("Goodbye!")
-                break
-                
-            if not question:
-                print("Please enter a question.")
-                continue
-                
-            print(f"\nQuerying the RAG chain with: '{question}'")
-            
-            try:
-                final_state = rag_app.invoke({"question": question})
-                print("\n--- Final Answer ---")
-                print(final_state['answer'])
-            except Exception as e:
-                print(f"\nError occurred: {e}")
-                print("Please try again with a different question.")
+        question = "Show me liquid supplements that are good for skin and hair"
+        final_state = rag_app.invoke({"question": question})
+        print("\n--- Final Answer ---")
+        print(final_state['answer'])
