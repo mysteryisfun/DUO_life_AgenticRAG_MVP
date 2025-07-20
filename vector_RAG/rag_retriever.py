@@ -171,7 +171,7 @@ if __name__ == '__main__':
         print("OpenAI API key not found.")
     else:
         rag_app = build_graph()
-        question = "Show me liquid supplements that are good for skin and hair"
+        question = "Are there any products for skin health?"
         final_state = rag_app.invoke({"question": question})
         print("\n--- Final Answer ---")
         print(final_state['answer'])

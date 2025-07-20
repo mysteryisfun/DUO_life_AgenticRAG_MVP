@@ -4,6 +4,7 @@ numpy
 openpyxl
 langchain
 langchain-community
+langchain-chroma
 pydantic
 langchain-openai
 python-dotenv
