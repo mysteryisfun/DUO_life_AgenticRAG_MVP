@@ -1,11 +1,11 @@
 {
-"name": "duolife-fullstack",
-"version": "1.0.0",
-"description": "Main package for Heroku build.",
-"scripts": {
-  "heroku-postbuild": "cd frontend && npm install && npm run build"
-},
-"engines": {
-  "node": "18.x"
-}
+  "name": "duo_life_mvp",
+  "private": true,
+  "scripts": {
+    "heroku-postbuild": "cd frontend && npm install && npm run build",
+    "start": "cd backend && npm install && npm start"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
 }
