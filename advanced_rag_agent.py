@@ -10,7 +10,6 @@ from langchain_chroma import Chroma
 from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain_core.chat_history import BaseChatMessageHistory
 from langchain_core.runnables.history import RunnableWithMessageHistory
-
 from graph_RAG.graph_manager import get_ingredients_for_product, find_products_containing_ingredient, get_product_links
 from models import Source
 
@@ -30,7 +29,8 @@ retriever = vectorstore.as_retriever(search_kwargs={"k": 5})
 
 # --- Structured Output Models (Pydantic V2) ---
 class RouterDecision(BaseModel):
-    needs_graph_search: bool = Field(description="Whether graph search is needed for this question")
+    is_general_question: bool = Field(description="True if the question is a general greeting or off-topic chit-chat.")
+    needs_graph_search: bool = Field(description="Whether graph search is needed. False if is_general_question is True.")
     reasoning: str = Field(description="Why this decision was made")
 
 class GraphResult(BaseModel):
@@ -53,42 +53,59 @@ class AgentState(TypedDict):
 
 # --- PROMPTS ---
 
-# 1. Router Prompt with structured output
+# 1. Router Prompt
 router_prompt_template = """
-You are an expert at determining if a question requires specific graph database information.
+You are an expert at routing user questions. Your task is to analyze the user's question and classify it.
 
-Analyze the user's question and determine if it needs graph search for:
-- Specific product ingredients
-- Which products contain specific ingredients  
-- Product relationships and links
+1.  **General Question**: If the question is a general greeting (e.g., "hello", "how are you?"), a question about you ("who are you?"), or simple off-topic chit-chat, classify it as a general question.
+2.  **Tool-requiring Question**: If the question is about DuoLife products, ingredients, business model, or health, it requires tools.
 
-Questions about general benefits, usage, business model, or company info do NOT need graph search.
+For tool-requiring questions, you must also determine if it needs a specific graph search for:
+- The ingredients of a specific product.
+- A list of products that contain a specific ingredient.
+- Links to specific products.
+
+All other questions about DuoLife will use a vector search.
 
 Question: {question}
 
 {format_instructions}
 """
-
 router_parser = PydanticOutputParser(pydantic_object=RouterDecision)
 router_prompt = ChatPromptTemplate.from_template(router_prompt_template).partial(
     format_instructions=router_parser.get_format_instructions()
 )
 
-# 2. Enhanced context prompt for final answer
+# 2. General Question Prompt
+general_question_prompt_template = """
+You are DuoBot, a helpful and friendly assistant for the DuoLife company.
+The user has asked a general question (e.g., a greeting, or "who are you?").
+Provide a brief, conversational, and helpful response. Do not ask to continue the conversation.
+
+Question: {question}
+
+Your response:
+"""
+general_question_prompt = ChatPromptTemplate.from_template(general_question_prompt_template)
+
+# 3. Answer Generation Prompt
 generate_answer_prompt_template = """
-You are a helpful assistant for the DuoLife company.
-Answer the user's question based on the provided context from both graph and vector searches.
+You are DuoBot, a helpful and friendly assistant for the DuoLife company.
+Answer the user's question based on the provided context.
 
-Graph Results (specific facts and links): {graph_context}
-Vector Search Results (detailed descriptions): {vector_context}
+Use the context below to provide a comprehensive and conversational answer.
+If you use the context, you must also provide the structured sources for your answer.
 
-Provide a conversational answer followed by structured sources using the exact format specified.
+Context from Graph Search (specific facts and links):
+{graph_context}
+
+Context from Vector Search (detailed descriptions):
+{vector_context}
 
 Question: {question}
 
 {format_instructions}
 """
-
 answer_parser = PydanticOutputParser(pydantic_object=FinalAnswer)
 generate_answer_prompt = ChatPromptTemplate.from_template(generate_answer_prompt_template).partial(
     format_instructions=answer_parser.get_format_instructions()
@@ -97,101 +114,73 @@ generate_answer_prompt = ChatPromptTemplate.from_template(generate_answer_prompt
 # --- Agent Nodes ---
 
 def router_node(state: AgentState):
-    """Determines if graph search is needed."""
+    """Determines the route for the question."""
     print("---ROUTING: ANALYZING QUESTION---")
     chain = router_prompt | llm | router_parser
     result = chain.invoke({"question": state["question"]})
-    print(f"Router Decision: {result.needs_graph_search} - {result.reasoning}")
+    print(f"Router Decision: General? {result.is_general_question}, Graph? {result.needs_graph_search} - {result.reasoning}")
     return {"router_decision": result.model_dump()}
 
+def general_question_node(state: AgentState):
+    """Handles general questions with a simple response."""
+    print("---HANDLING GENERAL QUESTION---")
+    chain = general_question_prompt | llm
+    result = chain.invoke({"question": state["question"]})
+    answer = FinalAnswer(conversational_answer=result.content, sources=[])
+    return {"final_answer": answer.model_dump()}
+
 def graph_search_node(state: AgentState):
-    """Queries the knowledge graph for specific information and links."""
+    """Queries the knowledge graph for specific information."""
     print("---GRAPH SEARCH---")
     question = state["question"].lower()
-    found_entities = []
-    relationships = []
-    links = []
-    
-    # Extract entities and get information
+    found_entities, relationships, links = [], [], []
+
     if "ingredients in" in question or "what is in" in question:
         product_name = question.split("in ")[-1].replace("?", "").strip()
         ingredients = get_ingredients_for_product(product_name)
         product_links = get_product_links(product_name)
-        
         found_entities.append(product_name)
         relationships.extend([f"{product_name} contains {ing}" for ing in ingredients])
         links.extend(product_links)
-        
     elif "which products contain" in question:
         ingredient_name = question.split("contain ")[-1].replace("?", "").strip()
         products = find_products_containing_ingredient(ingredient_name)
-        
         found_entities.append(ingredient_name)
         for product in products:
             relationships.append(f"{product} contains {ingredient_name}")
-            product_links = get_product_links(product)
-            links.extend(product_links)
-    
-    graph_result = GraphResult(
-        found_entities=found_entities,
-        relationships=relationships,
-        links=links
-    )
-    
+            links.extend(get_product_links(product))
+
+    graph_result = GraphResult(found_entities=found_entities, relationships=relationships, links=links)
     print(f"Graph Results: {graph_result}")
     return {"graph_results": graph_result.model_dump()}
 
 def vector_search_node(state: AgentState):
-    """Retrieves documents from vector store, using graph context to enhance search."""
+    """Retrieves documents from the vector store."""
     print("---VECTOR SEARCH---")
     question = state["question"]
     graph_results = state.get("graph_results", {})
-    
-    # Enhance search query with graph entities if available
     enhanced_query = question
     if graph_results.get("found_entities"):
         entities = " ".join(graph_results["found_entities"])
         enhanced_query = f"{question} {entities}"
-    
+
     docs = retriever.invoke(enhanced_query)
-    
-    # Format documents with metadata
-    doc_details = []
-    for d in docs:
-        metadata = d.metadata
-        name = metadata.get("name", "Unknown Source")
-        link = metadata.get("link", "")
-        doc_type = metadata.get("type", "General")
-        category = metadata.get("category", "Uncategorized")
-        snippet = d.page_content
-        
-        detail_str = (
-            f"Source Name: {name}\n"
-            f"Link: {link}\n"
-            f"Type: {doc_type}\n"
-            f"Category: {category}\n"
-            f"Content: {snippet}"
-        )
-        doc_details.append(detail_str)
-    
-    formatted_docs = "\n\n---\n\n".join(doc_details)
-    return {"vector_documents": formatted_docs}
+    doc_details = [
+        f"Source Name: {d.metadata.get('name', 'Unknown')}\nLink: {d.metadata.get('link', '')}\nType: {d.metadata.get('type', 'General')}\nCategory: {d.metadata.get('category', 'Uncategorized')}\nContent: {d.page_content}"
+        for d in docs
+    ]
+    return {"vector_documents": "\n\n---\n\n".join(doc_details)}
 
 def generate_answer_node(state: AgentState):
-    """Generates structured final answer using both graph and vector context."""
+    """Generates the final answer from context."""
     print("---GENERATING STRUCTURED ANSWER---")
-    
     graph_context = ""
     if state.get("graph_results"):
         gr = state["graph_results"]
-        graph_context = f"Entities: {gr.get('found_entities', [])}\n"
-        graph_context += f"Relationships: {gr.get('relationships', [])}\n"
-        graph_context += f"Links: {gr.get('links', [])}"
+        graph_context = f"Entities: {gr.get('found_entities', [])}\nRelationships: {gr.get('relationships', [])}\nLinks: {gr.get('links', [])}"
     
     vector_context = state.get("vector_documents", "")
-    
     chain = generate_answer_prompt | llm | answer_parser
-    
     
     try:
         result = chain.invoke({
@@ -200,20 +189,17 @@ def generate_answer_node(state: AgentState):
             "vector_context": vector_context
         })
         return {"final_answer": result.model_dump()}
-    
     except Exception as e:
-        print(f"Error in structured generation: {e}")
-        # Fallback to simple response
-        fallback_answer = FinalAnswer(
-            conversational_answer="I apologize, but I'm having trouble processing your request right now.",
-            sources=[]
-        )
+        print(f"Error in generation: {e}")
+        fallback_answer = FinalAnswer(conversational_answer="I'm having trouble processing your request.", sources=[])
         return {"final_answer": fallback_answer.model_dump()}
 
 # --- Conditional Logic ---
-def should_do_graph_search(state: AgentState):
-    """Determines next step based on router decision."""
+def route_question(state: AgentState):
+    """Determines the next step based on the router's decision."""
     router_decision = state.get("router_decision", {})
+    if router_decision.get("is_general_question", False):
+        return "general_question"
     if router_decision.get("needs_graph_search", False):
         return "graph_search"
     return "vector_search"
@@ -221,25 +207,20 @@ def should_do_graph_search(state: AgentState):
 # --- Graph Definition ---
 def build_graph():
     graph = StateGraph(AgentState)
-    
-    # Add all nodes
     graph.add_node("router", router_node)
+    graph.add_node("general_question", general_question_node)
     graph.add_node("graph_search", graph_search_node)
     graph.add_node("vector_search", vector_search_node)
     graph.add_node("generate_answer", generate_answer_node)
     
-    # Define the flow: router -> (optional graph_search) -> vector_search -> generate_answer
     graph.set_entry_point("router")
+    graph.add_conditional_edges("router", route_question, {
+        "general_question": "general_question",
+        "graph_search": "graph_search",
+        "vector_search": "vector_search"
+    })
     
-    graph.add_conditional_edges(
-        "router",
-        should_do_graph_search,
-        {
-            "graph_search": "graph_search",
-            "vector_search": "vector_search"
-        }
-    )
-    
+    graph.add_edge("general_question", END)
     graph.add_edge("graph_search", "vector_search")
     graph.add_edge("vector_search", "generate_answer")
     graph.add_edge("generate_answer", END)
@@ -263,6 +244,7 @@ def get_agent_executor():
         get_chat_history,
         input_messages_key="question",
         history_messages_key="chat_history",
+        history_output_key="final_answer"
     )
     return agent_executor
 
@@ -272,30 +254,29 @@ if __name__ == "__main__":
     agent = get_agent_executor()
     session_id = "test_session_123"
 
-    # Test Case 1: Graph + Vector Search
-    print("\n--- TEST CASE 1: GRAPH + VECTOR SEARCH ---")
-    question1 = "What are the ingredients in DuoLife Collagen?"
+    # Test Case 1: General Question
+    print("\n--- TEST CASE 1: GENERAL QUESTION ---")
+    question1 = "Hello, how are you?"
     response1 = agent.invoke(
         {"question": question1},
         config={"configurable": {"session_id": session_id}}
     )
-    print(f"Q: {question1}\nA: {response1}")
+    print(f"Q: {question1}\nA: {response1['final_answer']}")
 
-    # Test Case 2: Vector Search Only
-    print("\n--- TEST CASE 2: VECTOR SEARCH ONLY ---")
-    question2 = "What is DuoLife Collagen good for?"
+    # Test Case 2: Graph + Vector Search
+    print("\n--- TEST CASE 2: GRAPH + VECTOR SEARCH ---")
+    question2 = "What are the ingredients in DuoLife Collagen?"
     response2 = agent.invoke(
         {"question": question2},
         config={"configurable": {"session_id": session_id}}
     )
-    print(f"Q: {question2}\nA: {response2}")
+    print(f"Q: {question2}\nA: {response2['final_answer']}")
 
-    # Test Case 3: Follow-up question to test memory
-    print("\n--- TEST CASE 3: FOLLOW-UP (TESTING MEMORY) ---")
-    question3 = "Which of its ingredients helps with skin?"
+    # Test Case 3: Vector Search Only
+    print("\n--- TEST CASE 3: VECTOR SEARCH ONLY ---")
+    question3 = "What is DuoLife Collagen good for?"
     response3 = agent.invoke(
         {"question": question3},
         config={"configurable": {"session_id": session_id}}
     )
-    print(f"Q: {question3}\nA: {response3}")
-    print("\nNote: If the agent correctly answered the follow-up, session memory is working within a single process.")
+    print(f"Q: {question3}\nA: {response3['final_answer']}")
