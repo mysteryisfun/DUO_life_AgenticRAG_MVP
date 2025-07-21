@@ -7,6 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 import os
+
 # --- App Initialization ---
 app = FastAPI(
     title="DuoLife RAG Agent API",
@@ -14,14 +15,11 @@ app = FastAPI(
     version="1.0.0"
 )
 
-
-@app.get("/")
-async def serve_react():
-    return FileResponse("frontend/build/index.html")
+# --- CORS Configuration ---
 origins = [
     "http://localhost:3000",
     "http://localhost:3001",
-    "https://duolife-2170f667c572.herokuapp.com",  # Add this
+    "https://duolife-2170f667c572.herokuapp.com",
 ]
 app.add_middleware(
     CORSMiddleware,
@@ -31,19 +29,17 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 # --- Agent Initialization ---
 agent_executor = get_agent_executor()
 
-# --- API Endpoints ---
+# --- API Endpoints (MUST COME BEFORE STATIC MOUNT) ---
 
 @app.get("/new_session", response_model=SessionResponse)
 async def new_session():
     """Generates a new session ID to start a new conversation."""
     session_id = str(uuid.uuid4())
-    # Initialize the session with proper chat history object (not empty list)
-    chat_history = get_chat_history(session_id)
-    agent_session_store[session_id] = chat_history
+    # Initialize the session - let get_chat_history handle the proper initialization
+    get_chat_history(session_id)
     return SessionResponse(session_id=session_id)
 
 @app.post("/query")
@@ -52,7 +48,12 @@ async def query(request: QueryRequest) -> Dict[str, Any]:
     session_id = request.session_id
     question = request.question
 
-    if session_id not in agent_session_store:
+    # Check if session exists by trying to get chat history
+    try:
+        chat_history = get_chat_history(session_id)
+        if chat_history is None:
+            raise HTTPException(status_code=404, detail="Session not found. Please start a new session.")
+    except:
         raise HTTPException(status_code=404, detail="Session not found. Please start a new session.")
 
     try:
@@ -84,10 +85,16 @@ async def query(request: QueryRequest) -> Dict[str, Any]:
 async def clear_memory(request: ClearMemoryRequest):
     """Clears the conversation memory for a given session."""
     session_id = request.session_id
-    if session_id in agent_session_store:
-        agent_session_store[session_id].clear()
-        return ClearMemoryResponse(message=f"Conversation memory for session {session_id} has been cleared.")
-    else:
+    try:
+        chat_history = get_chat_history(session_id)
+        if chat_history and hasattr(chat_history, 'clear'):
+            chat_history.clear()
+            return ClearMemoryResponse(message=f"Conversation memory for session {session_id} has been cleared.")
+        else:
+            raise HTTPException(status_code=404, detail="Session not found.")
+    except:
         raise HTTPException(status_code=404, detail="Session not found.")
 
+# --- Static Files Mount (MUST BE LAST) ---
+# This will serve your React app for any route not matched above
 app.mount("/", StaticFiles(directory="frontend/build", html=True), name="frontend")
