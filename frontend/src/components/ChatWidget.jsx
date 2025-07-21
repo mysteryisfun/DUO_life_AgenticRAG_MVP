@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { getNewSession, queryAgent, clearSessionMemory } from './api.mock';
+import { getNewSessionNgrok as getNewSession, queryAgent, clearSessionMemory } from './api';
 import { productImages } from './productImages';
 
 // Placeholder AI/brain SVG icon for LimitlessMind.ai
