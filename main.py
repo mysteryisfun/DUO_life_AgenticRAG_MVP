@@ -21,6 +21,7 @@ async def serve_react():
 origins = [
     "http://localhost:3000",
     "http://localhost:3001",
+    "https://duolife-2170f667c572.herokuapp.com",  # Add this
 ]
 app.add_middleware(
     CORSMiddleware,
