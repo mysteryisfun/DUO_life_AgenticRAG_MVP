@@ -41,10 +41,9 @@ agent_executor = get_agent_executor()
 async def new_session():
     """Generates a new session ID to start a new conversation."""
     session_id = str(uuid.uuid4())
-    # Initialize the session in the store
-    agent_session_store[session_id] = []
-    # (Optional) Pre-load chat history if needed
-    get_chat_history(session_id)
+    # Initialize the session with proper chat history object (not empty list)
+    chat_history = get_chat_history(session_id)
+    agent_session_store[session_id] = chat_history
     return SessionResponse(session_id=session_id)
 
 @app.post("/query")
