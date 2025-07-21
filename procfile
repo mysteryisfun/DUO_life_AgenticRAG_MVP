@@ -1,0 +1,2 @@
+web: gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app
+release: python vector_RAG/rebuild_and_test.py

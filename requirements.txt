@@ -5,7 +5,6 @@ openpyxl
 langchain
 langchain-community
 langchain-chroma
-pydantic
 langchain-openai
 python-dotenv
 tiktoken
@@ -16,4 +15,6 @@ fastapi
 uvicorn
 networkx
 lxml
+gunicorn
+pydantic==2.11.0
 
