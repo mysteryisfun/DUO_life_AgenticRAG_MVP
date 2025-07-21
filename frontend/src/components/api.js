@@ -1,16 +1,16 @@
 // FastAPI backend base URL
-const API_BASE = 'http://localhost:8000';
+const API_URL='';
 
 // 1. Generate New Session
 export async function getNewSession() {
-  const res = await fetch(`${API_BASE}/new_session`);
+  const res = await fetch(`${API_URL}/new_session`);
   if (!res.ok) throw new Error('Failed to create new session');
   return res.json();
 }
 
 export async function getNewSessionNgrok() {
   try {
-    const res = await fetch(`${API_BASE}/new_session`, {
+    const res = await fetch(`${API_URL}/new_session`, {
       method: 'GET',
       headers: {
         'ngrok-skip-browser-warning': 'true',
@@ -32,7 +32,7 @@ export async function getNewSessionNgrok() {
 // 2. Query the Agent (Streaming)
 export async function queryAgent({ question, session_id, onLog, onToken, onFinal }) {
   try {
-    const res = await fetch(`${API_BASE}/query`, {
+    const res = await fetch(`${API_URL}/query`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ question, session_id }),
@@ -69,7 +69,7 @@ export async function queryAgent({ question, session_id, onLog, onToken, onFinal
 // 3. Clear Session Memory
 export async function clearSessionMemory(session_id) {
   try {
-    const res = await fetch(`${API_BASE}/clear_memory`, {
+    const res = await fetch(`${API_URL}/clear_memory`, {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json',
