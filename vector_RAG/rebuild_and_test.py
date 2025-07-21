@@ -80,49 +80,6 @@ def rebuild_vectorstore():
     )
     print("Vector store rebuilt successfully!")
 
-def test_retrieval():
-    """
-    Loads the newly built database and runs a direct, filtered query to test it.
-    """
-    print("\n--- Running Retrieval Test ---")
-    if not os.path.exists(CHROMA_PERSIST_DIRECTORY):
-        print("Vector store not found. Please build it first.")
-        return
-
-    embeddings = OpenAIEmbeddings(model=EMBEDDING_MODEL)
-    vectorstore = Chroma(
-        persist_directory=CHROMA_PERSIST_DIRECTORY, 
-        embedding_function=embeddings
-    )
-
-    # The exact query that was failing
-    search_query = "products for skin health"
-    filters = {
-        "$and": [
-            {"domain": {"$eq": "Products"}},
-            {"type": {"$eq": "liquid"}} # Querying with the standardized lowercase value
-        ]
-    }
-    
-    print(f"Test Query: '{search_query}'")
-    print(f"Test Filters: {filters}")
-
-    retriever = vectorstore.as_retriever(
-        search_kwargs={"k": 4, "filter": filters}
-    )
-    
-    results = retriever.invoke(search_query)
-
-    print(f"\n--- Test Results ---")
-    print(f"Found {len(results)} documents after filtering.")
-
-    if results:
-        print("[SUCCESS] The filtered retrieval is working correctly.")
-        for i, doc in enumerate(results):
-            print(f"  Result {i+1}: {doc.metadata['primary_entity_name']} - Section: {doc.metadata['section']}")
-    else:
-        print("[FAIL] The filtered retrieval is still not finding any documents. Please double-check the content of 'structured_rag_data.json'.")
-
 
 if __name__ == "__main__":
     if "OPENAI_API_KEY" not in os.environ:
@@ -130,4 +87,3 @@ if __name__ == "__main__":
     else:
         # Run the entire process
         rebuild_vectorstore()
-        test_retrieval()

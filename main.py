@@ -84,8 +84,4 @@ async def clear_memory(request: ClearMemoryRequest):
 
 # --- Frontend Hosting ---
 # This must be the last route
-app.mount("/", StaticFiles(directory="frontend", html = True), name="static")
-
-# --- Frontend Hosting ---
-# This must be the last route
-app.mount("/", StaticFiles(directory="frontend", html = True), name="static")
+app.mount("/", StaticFiles(directory="frontend/build", html = True), name="static")

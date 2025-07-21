@@ -10,7 +10,7 @@ export async function getNewSession() {
 
 export async function getNewSessionNgrok() {
   try {
-    const res = await fetch('/new_session', {
+    const res = await fetch(`${API_BASE}/new_session`, {
       method: 'GET',
       headers: {
         'ngrok-skip-browser-warning': 'true',
@@ -32,7 +32,7 @@ export async function getNewSessionNgrok() {
 // 2. Query the Agent (Streaming)
 export async function queryAgent({ question, session_id, onLog, onToken, onFinal }) {
   try {
-    const res = await fetch(`/query`, {
+    const res = await fetch(`${API_BASE}/query`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ question, session_id }),
@@ -69,7 +69,7 @@ export async function queryAgent({ question, session_id, onLog, onToken, onFinal
 // 3. Clear Session Memory
 export async function clearSessionMemory(session_id) {
   try {
-    const res = await fetch(`/clear_memory`, {
+    const res = await fetch(`${API_BASE}/clear_memory`, {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json',
