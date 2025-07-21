@@ -13,7 +13,7 @@ app = FastAPI(
     description="API for interacting with the advanced RAG agent for DuoLife products and business.",
     version="1.0.0"
 )
-app.mount("/", StaticFiles(directory="frontend/build", html=True), name="frontend")
+
 
 @app.get("/")
 async def serve_react():
@@ -88,3 +88,4 @@ async def clear_memory(request: ClearMemoryRequest):
     else:
         raise HTTPException(status_code=404, detail="Session not found.")
 
+app.mount("/", StaticFiles(directory="frontend/build", html=True), name="frontend")
