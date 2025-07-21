@@ -1,12 +1,9 @@
 import uuid
-from fastapi import FastAPI, HTTPException, Body
-from fastapi.responses import StreamingResponse
-from typing import Dict, AsyncGenerator
-import json
+from fastapi import FastAPI, HTTPException
+from typing import Dict, Any
 
-from models import QueryRequest, ClearMemoryRequest, SessionResponse, ClearMemoryResponse
-from advanced_rag_agent import get_agent_executor, get_chat_history
-from langchain_core.messages import AIMessage, HumanMessage
+from models import QueryRequest, ClearMemoryRequest, SessionResponse, ClearMemoryResponse, TokenChunk, FinalResponseData
+from advanced_rag_agent import get_agent_executor, get_chat_history, store as agent_session_store
 
 # --- App Initialization ---
 app = FastAPI(
@@ -14,10 +11,6 @@ app = FastAPI(
     description="API for interacting with the advanced RAG agent for DuoLife products and business.",
     version="1.0.0"
 )
-
-# --- In-Memory Session Storage ---
-# Note: For production, consider a more persistent storage like Redis.
-SESSIONS: Dict[str, any] = {}
 
 # --- Agent Initialization ---
 agent_executor = get_agent_executor()
@@ -30,73 +23,45 @@ async def new_session():
     Generates a new session ID to start a new conversation.
     """
     session_id = str(uuid.uuid4())
-    SESSIONS[session_id] = get_chat_history() # Initialize chat history
+    get_chat_history(session_id)
     return SessionResponse(session_id=session_id)
 
 @app.post("/query")
-async def query(request: QueryRequest) -> StreamingResponse:
+async def query(request: QueryRequest) -> Dict[str, Any]:
     """
-    Receives a question and session_id, streams the agent's response.
+    Receives a question and session_id, invokes the agent, and returns a single response.
     """
     session_id = request.session_id
     question = request.question
 
-    if session_id not in SESSIONS:
+    if session_id not in agent_session_store:
         raise HTTPException(status_code=404, detail="Session not found. Please start a new session.")
 
-    chat_history = SESSIONS[session_id]
-
-    // ...existing code...
-    async def stream_generator() -> AsyncGenerator[str, None]:
-        # 1. Log that the process is starting
-        log_msg = {"type": "log", "data": {"message": "Processing query..."}}
-        yield f"data: {json.dumps(log_msg)}\n\n"
-
-        full_response_obj = {}
-        # 2. Stream the agent's response
-        async for chunk in agent_executor.astream(
+    try:
+        # 1. Invoke the agent and wait for the final result
+        full_response_obj = await agent_executor.ainvoke(
             {"question": question},
             config={"configurable": {"session_id": session_id}}
-        ):
-            # We are interested in the final output from the agent, which is under the key '__end__'
-            if "__end__" in chunk:
-                full_response_obj = chunk["__end__"]['output']
-                break # End the loop once we have the final response
-        
-        # 3. Parse the final response from the agent
-        final_answer_str = full_response_obj.get("answer", "")
-        conversational_part = ""
-        sources_json = []
+        )
 
-        # Split the final answer string by our separator
-        separator = "---JSON_SOURCES---"
-        if separator in final_answer_str:
-            parts = final_answer_str.split(separator)
-            conversational_part = parts[0].strip()
-            try:
-                sources_json = json.loads(parts[1].strip())
-            except json.JSONDecodeError:
-                print("Error decoding sources JSON from agent response.")
-                sources_json = [] # Default to empty list on error
-        else:
-            conversational_part = final_answer_str.strip()
+        # 2. Parse the final answer from the agent's response
+        final_answer_data = full_response_obj.get("final_answer", {})
+        conversational_part = final_answer_data.get("conversational_answer", "No answer generated.")
+        sources_data = final_answer_data.get("sources", [])
 
-        # 4. Yield the conversational part as tokens (simulating token streaming)
-        token_msg = {"type": "token", "data": {"chunk": conversational_part}}
-        yield f"data: {json.dumps(token_msg)}\n\n"
-
-        # 5. Send the final structured response
-        final_response = {
-            "type": "final_response",
-            "data": {
-                "session_id": session_id,
-                "final_answer": conversational_part,
-                "sources": sources_json
-            }
+        # 3. Construct the single JSON response
+        response_data = {
+            "session_id": session_id,
+            "final_answer": conversational_part,
+            "sources": sources_data
         }
-        yield f"data: {json.dumps(final_response)}\n\n"
+        
+        # Return the final object with type "token"
+        return {"type": "token", "data": response_data}
 
-    return StreamingResponse(stream_generator(), media_type="text/event-stream")
+    except Exception as e:
+        print(f"Error during agent invocation: {e}")
+        raise HTTPException(status_code=500, detail="An error occurred while processing your request.")
 
 
 @app.post("/clear_memory", response_model=ClearMemoryResponse)
@@ -105,14 +70,8 @@ async def clear_memory(request: ClearMemoryRequest):
     Clears the conversation memory for a given session.
     """
     session_id = request.session_id
-    if session_id in SESSIONS:
-        SESSIONS[session_id].clear()
+    if session_id in agent_session_store:
+        agent_session_store[session_id].clear()
         return ClearMemoryResponse(message=f"Conversation memory for session {session_id} has been cleared.")
     else:
         raise HTTPException(status_code=404, detail="Session not found.")
-
-# To run this app:
-# 1. Make sure you have fastapi and uvicorn installed:
-#    pip install fastapi "uvicorn[standard]"
-# 2. Run the server from your terminal:
-#    uvicorn main:app --reload

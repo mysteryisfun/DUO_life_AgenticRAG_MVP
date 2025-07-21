@@ -3,16 +3,16 @@ from dotenv import load_dotenv
 from typing import List, Dict, Any, TypedDict
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.pydantic_v1 import BaseModel, Field
-from langchain_core.output_parsers import StrOutputParser
+from pydantic import BaseModel, Field
+from langchain_core.output_parsers import PydanticOutputParser
 from langgraph.graph import StateGraph, END
-from langchain_community.vectorstores import Chroma
+from langchain_chroma import Chroma
 from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain_core.chat_history import BaseChatMessageHistory
 from langchain_core.runnables.history import RunnableWithMessageHistory
 
-
-from graph_RAG.graph_manager import get_ingredients_for_product, find_products_containing_ingredient
+from graph_RAG.graph_manager import get_ingredients_for_product, find_products_containing_ingredient, get_product_links
+from models import Source
 
 # --- Environment and API Key Setup ---
 load_dotenv()
@@ -28,156 +28,225 @@ vectorstore = Chroma(
 )
 retriever = vectorstore.as_retriever(search_kwargs={"k": 5})
 
+# --- Structured Output Models (Pydantic V2) ---
+class RouterDecision(BaseModel):
+    needs_graph_search: bool = Field(description="Whether graph search is needed for this question")
+    reasoning: str = Field(description="Why this decision was made")
+
+class GraphResult(BaseModel):
+    found_entities: List[str] = Field(description="Entities found in the graph")
+    relationships: List[str] = Field(description="Relationships discovered")
+    links: List[str] = Field(description="Product links from the graph")
+
+class FinalAnswer(BaseModel):
+    conversational_answer: str = Field(description="The conversational response to the user")
+    sources: List[Source] = Field(description="List of source documents with metadata")
+
 # --- Agent State ---
 class AgentState(TypedDict):
     question: str
     chat_history: List[BaseModel]
-    documents: List[str]
-    graph_response: str
-    answer: str
+    router_decision: Dict[str, Any]
+    graph_results: Dict[str, Any]
+    vector_documents: str
+    final_answer: Dict[str, Any]
 
 # --- PROMPTS ---
 
-# 1. Router Prompt
+# 1. Router Prompt with structured output
 router_prompt_template = """
-You are an expert at routing a user's question to the correct tool.
-Based on the user's question, determine whether it is better to use a vector database or a graph database.
+You are an expert at determining if a question requires specific graph database information.
 
-- Use the 'vector_search' tool for questions about product descriptions, benefits, usage, business model, company info, or general queries.
-- Use the 'graph_search' tool for specific questions about the ingredients of a particular product or which products contain a specific ingredient.
+Analyze the user's question and determine if it needs graph search for:
+- Specific product ingredients
+- Which products contain specific ingredients  
+- Product relationships and links
 
-You must respond with ONLY the name of the tool to use, either 'vector_search' or 'graph_search'.
+Questions about general benefits, usage, business model, or company info do NOT need graph search.
 
 Question: {question}
-"""
-router_prompt = ChatPromptTemplate.from_template(router_prompt_template)
 
-# 2. Generate Answer Prompt
+{format_instructions}
+"""
+
+router_parser = PydanticOutputParser(pydantic_object=RouterDecision)
+router_prompt = ChatPromptTemplate.from_template(router_prompt_template).partial(
+    format_instructions=router_parser.get_format_instructions()
+)
+
+# 2. Enhanced context prompt for final answer
 generate_answer_prompt_template = """
 You are a helpful assistant for the DuoLife company.
-Answer the user's question based on the provided context, which may include information from a vector search, a graph database, and the chat history.
+Answer the user's question based on the provided context from both graph and vector searches.
 
-Keep your answer concise and directly address the question.
-After your conversational answer, you MUST include a structured list of sources in a JSON format.
-The JSON should be a list of objects, where each object represents a source document.
+Graph Results (specific facts and links): {graph_context}
+Vector Search Results (detailed descriptions): {vector_context}
 
-Start the JSON block with the separator '---JSON_SOURCES---' on a new line.
+Provide a conversational answer followed by structured sources using the exact format specified.
 
-The final output should look like this:
-<Your conversational answer here.>
----JSON_SOURCES---
-[
-  {{
-    "name": "Source Name (e.g., Product Name)",
-    "links": ["url_to_the_product_page_if_available"],
-    "type": "Document Type (e.g., Product, Business_Model)",
-    "category": "Document Category (e.g., Dietary Supplement, Marketing Plan)",
-    "snippet": "A relevant short quote from the source document."
-  }}
-]
+Question: {question}
 
-Context from vector search and/or graph search:
-{context}
-
-Question:
-{question}
+{format_instructions}
 """
-generate_answer_prompt = ChatPromptTemplate.from_template(generate_answer_prompt_template)
 
+answer_parser = PydanticOutputParser(pydantic_object=FinalAnswer)
+generate_answer_prompt = ChatPromptTemplate.from_template(generate_answer_prompt_template).partial(
+    format_instructions=answer_parser.get_format_instructions()
+)
 
 # --- Agent Nodes ---
 
 def router_node(state: AgentState):
-    """Routes the question to the appropriate tool."""
-    print("---ROUTING---")
-    chain = router_prompt | llm | StrOutputParser()
+    """Determines if graph search is needed."""
+    print("---ROUTING: ANALYZING QUESTION---")
+    chain = router_prompt | llm | router_parser
     result = chain.invoke({"question": state["question"]})
-    print(f"Route: {result}")
-    if "vector_search" in result.lower():
-        return "vector_search"
-    return "graph_search"
+    print(f"Router Decision: {result.needs_graph_search} - {result.reasoning}")
+    return {"router_decision": result.model_dump()}
+
+def graph_search_node(state: AgentState):
+    """Queries the knowledge graph for specific information and links."""
+    print("---GRAPH SEARCH---")
+    question = state["question"].lower()
+    found_entities = []
+    relationships = []
+    links = []
+    
+    # Extract entities and get information
+    if "ingredients in" in question or "what is in" in question:
+        product_name = question.split("in ")[-1].replace("?", "").strip()
+        ingredients = get_ingredients_for_product(product_name)
+        product_links = get_product_links(product_name)
+        
+        found_entities.append(product_name)
+        relationships.extend([f"{product_name} contains {ing}" for ing in ingredients])
+        links.extend(product_links)
+        
+    elif "which products contain" in question:
+        ingredient_name = question.split("contain ")[-1].replace("?", "").strip()
+        products = find_products_containing_ingredient(ingredient_name)
+        
+        found_entities.append(ingredient_name)
+        for product in products:
+            relationships.append(f"{product} contains {ingredient_name}")
+            product_links = get_product_links(product)
+            links.extend(product_links)
+    
+    graph_result = GraphResult(
+        found_entities=found_entities,
+        relationships=relationships,
+        links=links
+    )
+    
+    print(f"Graph Results: {graph_result}")
+    return {"graph_results": graph_result.model_dump()}
 
 def vector_search_node(state: AgentState):
-    """Retrieves documents from the vector store and formats them with metadata."""
+    """Retrieves documents from vector store, using graph context to enhance search."""
     print("---VECTOR SEARCH---")
     question = state["question"]
-    docs = retriever.invoke(question)
+    graph_results = state.get("graph_results", {})
     
-    # Format documents with all metadata for the LLM
+    # Enhance search query with graph entities if available
+    enhanced_query = question
+    if graph_results.get("found_entities"):
+        entities = " ".join(graph_results["found_entities"])
+        enhanced_query = f"{question} {entities}"
+    
+    docs = retriever.invoke(enhanced_query)
+    
+    # Format documents with metadata
     doc_details = []
     for d in docs:
         metadata = d.metadata
-        # Ensure all keys exist, provide defaults if not
         name = metadata.get("name", "Unknown Source")
         link = metadata.get("link", "")
         doc_type = metadata.get("type", "General")
         category = metadata.get("category", "Uncategorized")
         snippet = d.page_content
         
-        # Create a detailed string for each document
         detail_str = (
             f"Source Name: {name}\n"
             f"Link: {link}\n"
             f"Type: {doc_type}\n"
             f"Category: {category}\n"
-            f"Snippet: \"{snippet}\""
+            f"Content: {snippet}"
         )
         doc_details.append(detail_str)
-        
+    
     formatted_docs = "\n\n---\n\n".join(doc_details)
-    return {"documents": formatted_docs, "graph_response": ""}
-
-def graph_search_node(state: AgentState):
-    """Queries the knowledge graph for specific ingredient/product relationships."""
-    print("---GRAPH SEARCH---")
-    question = state["question"].lower()
-    # This is a simplified logic. A real implementation would use an LLM to extract entities.
-    if "ingredients in" in question or "what is in" in question:
-        product_name = question.split("in ")[-1].replace("?", "").strip()
-        ingredients = get_ingredients_for_product(product_name)
-        response = f"Ingredients for {product_name.title()}: {', '.join(ingredients) if ingredients else 'Not found.'}"
-    elif "which products contain" in question:
-        ingredient_name = question.split("contain ")[-1].replace("?", "").strip()
-        products = find_products_containing_ingredient(ingredient_name)
-        response = f"Products containing {ingredient_name.title()}: {', '.join(products) if products else 'Not found.'}"
-    else:
-        response = "Could not determine the specific graph query from the question."
-    return {"documents": [], "graph_response": response}
+    return {"vector_documents": formatted_docs}
 
 def generate_answer_node(state: AgentState):
-    """Generates the final answer based on the retrieved context."""
-    print("---GENERATING ANSWER---")
-    context = f"Vector Search Results:\n{state['documents']}\n\nGraph Search Results:\n{state['graph_response']}"
-    chain = generate_answer_prompt | llm | StrOutputParser()
-    answer = chain.invoke({
-        "question": state["question"],
-        "context": context.strip()
-    })
-    return {"answer": answer}
+    """Generates structured final answer using both graph and vector context."""
+    print("---GENERATING STRUCTURED ANSWER---")
+    
+    graph_context = ""
+    if state.get("graph_results"):
+        gr = state["graph_results"]
+        graph_context = f"Entities: {gr.get('found_entities', [])}\n"
+        graph_context += f"Relationships: {gr.get('relationships', [])}\n"
+        graph_context += f"Links: {gr.get('links', [])}"
+    
+    vector_context = state.get("vector_documents", "")
+    
+    chain = generate_answer_prompt | llm | answer_parser
+    
+    
+    try:
+        result = chain.invoke({
+            "question": state["question"],
+            "graph_context": graph_context,
+            "vector_context": vector_context
+        })
+        return {"final_answer": result.model_dump()}
+    
+    except Exception as e:
+        print(f"Error in structured generation: {e}")
+        # Fallback to simple response
+        fallback_answer = FinalAnswer(
+            conversational_answer="I apologize, but I'm having trouble processing your request right now.",
+            sources=[]
+        )
+        return {"final_answer": fallback_answer.model_dump()}
 
+# --- Conditional Logic ---
+def should_do_graph_search(state: AgentState):
+    """Determines next step based on router decision."""
+    router_decision = state.get("router_decision", {})
+    if router_decision.get("needs_graph_search", False):
+        return "graph_search"
+    return "vector_search"
 
 # --- Graph Definition ---
 def build_graph():
     graph = StateGraph(AgentState)
-    graph.add_node("vector_search", vector_search_node)
+    
+    # Add all nodes
+    graph.add_node("router", router_node)
     graph.add_node("graph_search", graph_search_node)
+    graph.add_node("vector_search", vector_search_node)
     graph.add_node("generate_answer", generate_answer_node)
-
-    graph.set_conditional_entry_point(
-        router_node,
+    
+    # Define the flow: router -> (optional graph_search) -> vector_search -> generate_answer
+    graph.set_entry_point("router")
+    
+    graph.add_conditional_edges(
+        "router",
+        should_do_graph_search,
         {
-            "vector_search": "vector_search",
             "graph_search": "graph_search",
-        },
+            "vector_search": "vector_search"
+        }
     )
+    
+    graph.add_edge("graph_search", "vector_search")
     graph.add_edge("vector_search", "generate_answer")
-    graph.add_edge("graph_search", "generate_answer")
     graph.add_edge("generate_answer", END)
+    
     return graph.compile()
 
 # --- Functions for API Integration ---
-
-# Store for session histories
 store = {}
 
 def get_chat_history(session_id: str) -> BaseChatMessageHistory:
@@ -197,36 +266,36 @@ def get_agent_executor():
     )
     return agent_executor
 
-
 # --- Main Execution Block for Testing ---
 if __name__ == "__main__":
     print("Agent is ready. Running test cases...")
     agent = get_agent_executor()
     session_id = "test_session_123"
 
-    # Test Case 1: Vector Search
-    print("\n--- TEST CASE 1: VECTOR SEARCH ---")
-    question1 = "What is DuoLife Collagen good for?"
+    # Test Case 1: Graph + Vector Search
+    print("\n--- TEST CASE 1: GRAPH + VECTOR SEARCH ---")
+    question1 = "What are the ingredients in DuoLife Collagen?"
     response1 = agent.invoke(
         {"question": question1},
         config={"configurable": {"session_id": session_id}}
     )
-    print(f"Q: {question1}\nA: {response1['answer']}")
+    print(f"Q: {question1}\nA: {response1}")
 
-    # Test Case 2: Graph Search
-    print("\n--- TEST CASE 2: GRAPH SEARCH ---")
-    question2 = "What are the ingredients in DuoLife Collagen?"
+    # Test Case 2: Vector Search Only
+    print("\n--- TEST CASE 2: VECTOR SEARCH ONLY ---")
+    question2 = "What is DuoLife Collagen good for?"
     response2 = agent.invoke(
         {"question": question2},
         config={"configurable": {"session_id": session_id}}
     )
-    print(f"Q: {question2}\nA: {response2['answer']}")
+    print(f"Q: {question2}\nA: {response2}")
 
-    # Test Case 3: Follow-up question (tests history)
-    print("\n--- TEST CASE 3: FOLLOW-UP ---")
-    question3 = "Which of those helps with skin?"
+    # Test Case 3: Follow-up question to test memory
+    print("\n--- TEST CASE 3: FOLLOW-UP (TESTING MEMORY) ---")
+    question3 = "Which of its ingredients helps with skin?"
     response3 = agent.invoke(
         {"question": question3},
         config={"configurable": {"session_id": session_id}}
     )
-    print(f"Q: {question3}\nA: {response3['answer']}")
+    print(f"Q: {question3}\nA: {response3}")
+    print("\nNote: If the agent correctly answered the follow-up, session memory is working within a single process.")

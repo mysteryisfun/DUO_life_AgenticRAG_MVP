@@ -35,11 +35,11 @@ class TokenChunk(BaseModel):
     data: TokenData
 
 class Source(BaseModel):
-    name: str
-    links: List[str]
-    type: str
-    category: str
-    snippet: str
+    name: str = Field(..., description="The name of the source  (e.g., product name).")
+    links: List[str] = Field(..., description="Links to the source product retrieved from the graph search.")
+    type: str = Field(..., description="The type of the source document (e.g., Product, Business_Model).")
+    category: str = Field(..., description="The category of the source document (e.g., Dietary Supplement).")
+    snippet: str = Field(..., description="A relevant short quote from the source document.")
 
 class FinalResponseData(BaseModel):
     session_id: str
