@@ -2,8 +2,7 @@
   "name": "duo_life_mvp",
   "private": true,
   "scripts": {
-    "heroku-postbuild": "cd frontend && npm install && npm run build",
-    "start": "cd backend && npm install && npm start"
+    "heroku-postbuild": "cd frontend && npm install && npm run build"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
