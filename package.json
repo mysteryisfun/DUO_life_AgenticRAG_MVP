@@ -1,0 +1,11 @@
+{
+"name": "duolife-fullstack",
+"version": "1.0.0",
+"description": "Main package for Heroku build.",
+"scripts": {
+  "heroku-postbuild": "cd frontend && npm install && npm run build"
+},
+"engines": {
+  "node": "18.x"
+}
+}

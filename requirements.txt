@@ -17,4 +17,4 @@ networkx
 lxml
 gunicorn
 pydantic==2.11.0
-
+aiofiles

@@ -1,0 +1,47 @@
+[
+  {
+    "type": "final_response",
+    "data": {
+      "session_id": "11e1ee81-a8ec-42c5-9b25-bb4865f7ed51",
+      "final_answer": "To enhance your immune system, DuoLife offers several products that you might find beneficial. The ProSelect capsules contain a blend of plant and mushroom extracts that boost your immune system and support overall health. ProImmuno capsules are designed to support immune function and respiratory health, especially during times of reduced immunity or exposure to infections. For children over 6 years of age, SunVital is a natural liquid supplement that supports the immune system with vitamins, minerals, and antioxidants. Lastly, BorelissPro capsules not only support immunity but also help maintain normal cholesterol levels and joint functions.",
+      "sources": [
+        {
+          "name": "ProSelect",
+          "links": [
+            "https://myduolife.com/shop/products/1/646,proselect.html?__language=pl"
+          ],
+          "type": "capsule",
+          "category": "Uncategorized",
+          "snippet": "Contains a blend of plant and mushroom extracts with a broad spectrum of action, which not only boost your immune system, but also support healthy cardiovascular system and liver, as well as promotes youthful appearance of the skin."
+        },
+        {
+          "name": "ProImmuno",
+          "links": [
+            "https://myduolife.com/shop/products/1/1073,proimmuno.html?__language=pl"
+          ],
+          "type": "capsule",
+          "category": "Uncategorized",
+          "snippet": "A plant-based extract containing organic zinc and propolis extracts with a broad spectrum of action: supporting optimal functions of the immune and respiratory systems, as well as helping fight against viral infections and inflammation."
+        },
+        {
+          "name": "SunVital",
+          "links": [
+            "https://myduolife.com/shop/products/1/639,sunvital.html?__language=pl"
+          ],
+          "type": "liquid",
+          "category": "Uncategorized",
+          "snippet": "100% natural food supplement for children over 6 years of age, composed on the basis of natural vitamins, minerals and antioxidants from raw vegetable materials, with the addition of zinc to support the proper functioning of the immune system and respiratory tract of the young organism."
+        },
+        {
+          "name": "BorelissPro",
+          "links": [
+            "https://myduolife.com/shop/products/1/660,borelisspro.html?__language=pl"
+          ],
+          "type": "capsule",
+          "category": "Uncategorized",
+          "snippet": "Contains ingredients with a broad spectrum: supporting not only the body immunity, but also heart functions, and helping to maintain normal cholesterol levels, normal joint and bone functions and youthful appearance of the skin."
+        }
+      ]
+    }
+  }
+]

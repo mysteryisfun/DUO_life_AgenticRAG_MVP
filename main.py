@@ -4,7 +4,9 @@ from typing import Dict, Any
 from models import QueryRequest, ClearMemoryRequest, SessionResponse, ClearMemoryResponse
 from advanced_rag_agent import get_agent_executor, get_chat_history, store as agent_session_store
 from fastapi.middleware.cors import CORSMiddleware
-
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+import os
 # --- App Initialization ---
 app = FastAPI(
     title="DuoLife RAG Agent API",
@@ -22,6 +24,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 # --- Agent Initialization ---
 agent_executor = get_agent_executor()
@@ -78,3 +81,11 @@ async def clear_memory(request: ClearMemoryRequest):
         return ClearMemoryResponse(message=f"Conversation memory for session {session_id} has been cleared.")
     else:
         raise HTTPException(status_code=404, detail="Session not found.")
+
+# --- Frontend Hosting ---
+# This must be the last route
+app.mount("/", StaticFiles(directory="frontend", html = True), name="static")
+
+# --- Frontend Hosting ---
+# This must be the last route
+app.mount("/", StaticFiles(directory="frontend", html = True), name="static")
