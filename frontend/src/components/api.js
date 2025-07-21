@@ -9,9 +9,14 @@ export async function getNewSession() {
 }
 
 export async function getNewSessionNgrok() {
-  const res = await fetch('https://8f9578c45001.ngrok-free.app/new_session');
+  const res = await fetch('https://8aed78932d4b.ngrok-free.app/new_session', {
+    headers: {
+      'ngrok-skip-browser-warning': 'true'
+    }
+  });
   if (!res.ok) throw new Error('Failed to create new session (ngrok)');
-  return res.json();
+  const data = await res.json();
+  return data.session_id;
 }
 
 // 2. Query the Agent (Streaming)
