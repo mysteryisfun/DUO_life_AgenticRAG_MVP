@@ -40,7 +40,7 @@ class GraphResult(BaseModel):
 
 class FinalAnswer(BaseModel):
     conversational_answer: str = Field(description="The conversational response to the user")
-    sources: List[Source] = Field(description="List of source documents with metadata")
+    sources: List[Source] = Field(description="List of source documents with metadata, only if the answer is about product recommendations")
 
 # --- Agent State ---
 class AgentState(TypedDict):
@@ -88,6 +88,7 @@ Question: {question}
 
 Provide a brief and helpful response. If the question is off-topic, politely ask them to stick to DuoLife-related questions about supplements, health, products, or the company.
 
+
 Your response:
 """
 general_question_prompt = ChatPromptTemplate.from_template(general_question_prompt_template)
@@ -98,7 +99,10 @@ You are DuoBot, a helpful and friendly assistant for the DuoLife company.
 Answer the user's question based on the provided context.
 
 Use the context below to provide a comprehensive and conversational answer.
-If you use the context, you must also provide the structured sources for your answer.
+
+If the answer is about Business, product description, Health benefits, ingredients, anything which are not product recommendations related question, dont 
+output or sources array just give the answer to the question.
+If the answer is about product recommendations, output including the links to the products.
 
 Context from Graph Search (specific facts and links):
 {graph_context}
