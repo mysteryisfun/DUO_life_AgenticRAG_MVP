@@ -10,7 +10,8 @@ This repository contains the source code for DuoBot, a sophisticated conversatio
 5.  [Visualizing the Knowledge Graph](#visualizing-the-knowledge-graph)
 6.  [Project Structure](#project-structure)
 7.  [Setup and Installation](#setup-and-installation)
-
+--ujwaljeevan123@gmail.com 
+--adithyant982@gmail.com
 ## The Core Problem
 
 Standard chatbots often struggle with complex, domain-specific information. A simple Vector RAG system, while powerful, has limitations:
