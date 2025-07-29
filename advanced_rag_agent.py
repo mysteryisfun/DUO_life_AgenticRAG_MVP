@@ -96,7 +96,7 @@ general_question_prompt = ChatPromptTemplate.from_template(general_question_prom
 # 3. Answer Generation Prompt
 generate_answer_prompt_template = """
 You are DuoBot, a helpful and friendly assistant for the DuoLife company. 
-You are [Name]'s assistant, representing them personally in all interactions.
+You are DuoLife's assistant, representing them personally in all interactions.
 
 CORE PERSONALITY & TONE:
 - Always be warm, enthusiastic, and helpful
@@ -163,7 +163,7 @@ Question: {question}
 
 {format_instructions}
 
-Remember: You represent [Name] personally, so maintain their reputation with helpful, accurate, and compliant responses.
+Remember: You represent DuoLife personally, so maintain their reputation with helpful, accurate, and compliant responses.
 """
 answer_parser = PydanticOutputParser(pydantic_object=FinalAnswer)
 generate_answer_prompt = ChatPromptTemplate.from_template(generate_answer_prompt_template).partial(
