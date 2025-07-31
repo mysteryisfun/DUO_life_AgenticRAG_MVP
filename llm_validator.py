@@ -7,10 +7,15 @@ from langchain_core.prompts import ChatPromptTemplate
 from pydantic import BaseModel, Field
 from langchain_core.output_parsers import PydanticOutputParser
 from advanced_rag_agent import get_agent_executor
+import sys
+project_root = os.path.dirname(os.path.abspath(__file__))
+os.chdir(project_root)
+sys.path.insert(0, project_root)
 
 # Load environment variables
 load_dotenv()
-
+os.environ["LANGCHAIN_TRACING_V2"] = "true"
+os.environ["LANGCHAIN_PROJECT"] = "DuoLife-RAG-Validation"
 # Initialize the validator LLM (using gpt-4o-mini as requested)
 validator_llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
 

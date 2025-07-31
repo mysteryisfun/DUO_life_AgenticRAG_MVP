@@ -1,4 +1,5 @@
 import os
+import re
 from dotenv import load_dotenv
 from typing import List, Dict, Any, TypedDict
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
@@ -51,21 +52,121 @@ class AgentState(TypedDict):
     vector_documents: str
     final_answer: Dict[str, Any]
 
+# --- HELPER FUNCTIONS FOR ENHANCED GRAPH SEARCH ---
+def extract_ingredient_from_info_query(question: str) -> str:
+    """Extract ingredient name from information queries."""
+    # Handle patterns like "What is resveratrol", "function of resveratrol"
+    patterns = [
+        r"what is (?:the )?(?:ingredient )?['\"]?(\w+)['\"]?",
+        r"function of (?:the )?(?:ingredient )?['\"]?(\w+)['\"]?",
+        r"benefits of (?:the )?(?:ingredient )?['\"]?(\w+)['\"]?",
+        r"primary function of (?:the )?(?:ingredient )?['\"]?(\w+)['\"]?",
+        r"tell me about (?:the )?(?:ingredient )?['\"]?(\w+)['\"]?",
+        r"information about (?:the )?(?:ingredient )?['\"]?(\w+)['\"]?"
+    ]
+    
+    question_lower = question.lower()
+    
+    for pattern in patterns:
+        match = re.search(pattern, question_lower)
+        if match:
+            return match.group(1).capitalize()
+    
+    # Fallback: look for known ingredients in the question
+    known_ingredients = [
+        "resveratrol", "collagen", "biotin", "keratin", "vitamin c", "magnesium", 
+        "zinc", "iron", "calcium", "vitamin d", "vitamin b", "omega", "curcumin",
+        "coenzyme", "glucosamine", "chondroitin", "hyaluronic", "probiotics"
+    ]
+    for ingredient in known_ingredients:
+        if ingredient.lower() in question_lower:
+            return ingredient.capitalize()
+    
+    return None
+
+def extract_product_name_enhanced(question: str) -> str:
+    """Extract product name from question with better patterns."""
+    # Look for product name after "in"
+    if " in " in question:
+        product = question.split(" in ")[-1].replace("?", "").strip()
+        return product.title()
+    
+    # Look for DuoLife products
+    if "duolife" in question.lower():
+        words = question.split()
+        duolife_index = -1
+        for i, word in enumerate(words):
+            if "duolife" in word.lower():
+                duolife_index = i
+                break
+        
+        if duolife_index != -1 and duolife_index + 1 < len(words):
+            return f"DuoLife {words[duolife_index + 1].replace('?', '').strip()}"
+    
+    return None
+
+def extract_ingredient_name_enhanced(question: str) -> str:
+    """Extract ingredient name from question with better patterns."""
+    if "contain " in question:
+        ingredient = question.split("contain ")[-1].replace("?", "").strip()
+        return ingredient.capitalize()
+    
+    if "with " in question:
+        ingredient = question.split("with ")[-1].replace("?", "").strip()
+        return ingredient.capitalize()
+        
+    return None
+
+def extract_health_condition(question: str) -> str:
+    """Extract health condition or benefit from question."""
+    condition_mappings = {
+        "hair loss": ["biotin", "keratin", "collagen"],
+        "brittle nails": ["biotin", "keratin", "collagen"],
+        "nail health": ["biotin", "keratin", "collagen"],
+        "hair health": ["biotin", "keratin", "collagen"],
+        "skin health": ["collagen", "vitamin c", "hyaluronic acid"],
+        "joint pain": ["collagen", "glucosamine", "chondroitin"],
+        "joint health": ["collagen", "glucosamine", "chondroitin"],
+        "cardiovascular": ["resveratrol", "omega", "coenzyme q10"],
+        "heart health": ["resveratrol", "omega", "coenzyme q10"],
+        "immune system": ["vitamin c", "zinc", "vitamin d"],
+        "energy": ["b complex", "iron", "coenzyme q10"],
+        "brain function": ["omega", "resveratrol", "b complex"],
+        "antioxidant": ["resveratrol", "vitamin c", "curcumin"]
+    }
+    
+    question_lower = question.lower()
+    for condition, ingredients in condition_mappings.items():
+        if condition in question_lower:
+            return condition
+    
+    return None
+
 # --- PROMPTS ---
 
-# 1. Router Prompt
+# 1. Enhanced Router Prompt
 router_prompt_template = """
-You are an expert at routing user questions. Your task is to analyze the user's question and classify it.
+You are an expert at routing user questions for the DuoLife assistant.
 
-1.  **General Question**: If the question is a general greeting (e.g., "hello", "how are you?"), a question about you ("who are you?"), or simple off-topic chit-chat, classify it as a general question.
-2.  **Tool-requiring Question**: If the question is about DuoLife products, ingredients, business model, or health, it requires tools.
+QUESTION CATEGORIES:
 
-For tool-requiring questions, you must also determine if it needs a specific graph search for:
-- The ingredients of a specific product.
-- A list of products that contain a specific ingredient.
-- Links to specific products.
+1. **General Questions**: 
+   - Greetings: "hello", "how are you?", "who are you?"
+   - Off-topic questions not related to DuoLife
+   - Set is_general_question=True, needs_graph_search=False
 
-All other questions about DuoLife will use a vector search.
+2. **Graph Search Required**:
+   - Ingredient information: "What is resveratrol?", "function of biotin", "primary function of resveratrol"
+   - Product ingredients: "What's in DuoLife Collagen?", "ingredients in DuoLife Day and Night"
+   - Products containing ingredient: "Which products contain vitamin C?", "products with resveratrol"
+   - Product recommendations: "What helps with hair loss?", "recommend for cardiovascular health"
+   - Set is_general_question=False, needs_graph_search=True
+
+3. **Vector Search Only**:
+   - General DuoLife information without specific product queries
+   - Business model questions
+   - General health topics without specific ingredient/product requests
+   - Set is_general_question=False, needs_graph_search=False
 
 Question: {question}
 
@@ -88,12 +189,11 @@ Question: {question}
 
 Provide a brief and helpful response. If the question is off-topic, politely ask them to stick to DuoLife-related questions about supplements, health, products, or the company.
 
-
 Your response:
 """
 general_question_prompt = ChatPromptTemplate.from_template(general_question_prompt_template)
 
-# 3. Answer Generation Prompt
+# 3. Enhanced Answer Generation Prompt
 generate_answer_prompt_template = """
 You are DuoBot, a helpful and friendly assistant for the DuoLife company. 
 You are DuoLife's assistant, representing them personally in all interactions.
@@ -107,51 +207,35 @@ CORE PERSONALITY & TONE:
 
 RESPONSE GUIDELINES:
 
-1. **MEDICAL DISCLAIMERS**: 
+1. **PRODUCT RECOMMENDATIONS**:
+   - When specific products are found in graph context, ALWAYS recommend them
+   - Include affiliate links: "You can check it out here: [Product Link]"
+   - Add products to sources array with proper metadata
+   - Be specific about product names and their benefits
+
+2. **INGREDIENT INFORMATION**:
+   - Provide detailed information about the ingredient's function and benefits
+   - If products containing the ingredient are found in graph context, recommend them
+   - Include sources array when recommending products
+
+3. **MEDICAL DISCLAIMERS**: 
    - ALWAYS end health-related responses with: "*[This information is not medical advice. Always consult with a healthcare professional for any health concerns.]*"
-   - For high-risk conditions or drug interactions, be extra cautious and recommend consulting a doctor
 
-2. **LANGUAGE RESTRICTIONS**:
-   - NEVER use medical action words like: "inhibit", "treat", "cure", "heal", "affects", "prevents"
-   - Instead use supportive language: "supports", "contributes to", "helps maintain", "designed to support"
-   - Replace "affects the brain" with "supports normal brain function"
+4. **LANGUAGE RESTRICTIONS**:
+   - Use supportive language: "supports", "contributes to", "helps maintain", "designed to support"
+   - Avoid: "treat", "cure", "heal", "prevents"
 
-3. **AFFILIATE LINKS & SOURCES**:
-   - For product recommendations, ALWAYS include: "You can check it out here: [Affiliate Link]"
-   - Only include sources array for product recommendation questions
-   - For informational questions (ingredients, business, health benefits), provide direct answers without sources
+5. **SOURCES REQUIREMENT**:
+   - Include sources array when:
+     * Recommending specific products (use graph links and vector store metadata)
+     * Answering "which products contain X"
+     * Providing product information with links
+   - Do NOT include sources for general ingredient information without product recommendations
 
-4. **CONTRAINDICATIONS & SAFETY**:
-   - If asked about product safety with medical conditions, always recommend consulting a healthcare professional
-   - For sensitive skin products, suggest patch testing
-   - Be specific about product guidelines and warnings
-
-5. **FACTUAL ACCURACY**:
-   - Provide specific details: percentages, gram amounts, ingredient names
-   - Use exact product names and proprietary formula names (e.g., "BACTILARDII®", "ProRelaxin®")
-   - Include naturalness indices when relevant (e.g., "96% natural")
-
-6. **BUSINESS QUESTIONS**:
-   - Provide specific figures for positions, requirements, and earnings
-   - Include point values (P) and premium point (PP) information
-   - Explain DuoLife career structure clearly
-
-7. **SECURITY & GUARDRAILS**:
-   - For off-topic questions: "I'm sorry, I can't assist with that. I can only answer questions related to DuoLife."
-   - For system/personal information requests: "I'm sorry, I can't assist with that. I can only answer questions related to DuoLife and I do not have access to user data."
-   - Stay focused on DuoLife-related topics only
-
-8. **MULTILINGUAL SUPPORT**:
-   - Respond in the language the user asks in
-   - Maintain the same tone and guidelines across all languages
-
-ANSWER STRUCTURE:
-- Start with friendly greeting: "Hi! I'm [Name]'s assistant."
-- Provide clear, enthusiastic answer
-- Include specific details and facts
-- Add relevant emoji
-- Include affiliate link for product recommendations
-- End with medical disclaimer if health-related
+6. **FACTUAL ACCURACY**:
+   - Use exact product names and links from the graph context
+   - Include specific details from vector context
+   - Mention naturalness indices and proprietary formulas when available
 
 Context from Graph Search (specific facts and links):
 {graph_context}
@@ -161,9 +245,9 @@ Context from Vector Search (detailed descriptions):
 
 Question: {question}
 
-{format_instructions}
+Based on the context provided, give a comprehensive answer. If specific products and links are found in the graph context, include them in your response with affiliate links and add them to the sources array.
 
-Remember: You represent DuoLife personally, so maintain their reputation with helpful, accurate, and compliant responses.
+{format_instructions}
 """
 answer_parser = PydanticOutputParser(pydantic_object=FinalAnswer)
 generate_answer_prompt = ChatPromptTemplate.from_template(generate_answer_prompt_template).partial(
@@ -189,28 +273,56 @@ def general_question_node(state: AgentState):
     return {"final_answer": answer.model_dump()}
 
 def graph_search_node(state: AgentState):
-    """Queries the knowledge graph for specific information."""
+    """Enhanced graph search with multiple query patterns."""
     print("---GRAPH SEARCH---")
     question = state["question"].lower()
     found_entities, relationships, links = [], [], []
 
-    if "ingredients in" in question or "what is in" in question:
-        product_name = question.split("in ")[-1].replace("?", "").strip()
-        ingredients = get_ingredients_for_product(product_name)
-        product_links = get_product_links(product_name)
-        found_entities.append(product_name)
-        relationships.extend([f"{product_name} contains {ing}" for ing in ingredients])
-        links.extend(product_links)
-    elif "which products contain" in question:
-        ingredient_name = question.split("contain ")[-1].replace("?", "").strip()
-        products = find_products_containing_ingredient(ingredient_name)
-        found_entities.append(ingredient_name)
-        for product in products:
-            relationships.append(f"{product} contains {ingredient_name}")
-            links.extend(get_product_links(product))
+    # 1. Product ingredients query
+    if any(phrase in question for phrase in ["ingredients in", "what is in", "contains what", "composition of"]):
+        product_name = extract_product_name_enhanced(state["question"])
+        if product_name:
+            print(f"Looking for ingredients in: {product_name}")
+            ingredients = get_ingredients_for_product(product_name)
+            product_links = get_product_links(product_name)
+            found_entities.append(product_name)
+            relationships.extend([f"{product_name} contains {ing}" for ing in ingredients])
+            links.extend(product_links)
+
+    # 2. Products containing ingredient query
+    elif any(phrase in question for phrase in ["which products contain", "products with", "find products containing", "products that have"]):
+        ingredient_name = extract_ingredient_name_enhanced(state["question"])
+        if ingredient_name:
+            print(f"Looking for products containing: {ingredient_name}")
+            products = find_products_containing_ingredient(ingredient_name)
+            found_entities.append(ingredient_name)
+            for product in products:
+                relationships.append(f"{product} contains {ingredient_name}")
+                links.extend(get_product_links(product))
+
+    # 3. Ingredient information query (NEW - THIS WAS MISSING!)
+    elif any(phrase in question for phrase in ["what is", "function of", "benefits of", "primary function", "tell me about", "information about"]):
+        ingredient_name = extract_ingredient_from_info_query(state["question"])
+        if ingredient_name:
+            print(f"Looking for ingredient info and products containing: {ingredient_name}")
+            # Find products containing this ingredient
+            products = find_products_containing_ingredient(ingredient_name)
+            found_entities.append(ingredient_name)
+            for product in products:
+                relationships.append(f"{product} contains {ingredient_name}")
+                links.extend(get_product_links(product))
+
+    # 4. Product recommendation query (NEW)
+    elif any(phrase in question for phrase in ["recommend", "help with", "good for", "best for", "what should i take"]):
+        condition = extract_health_condition(state["question"])
+        if condition:
+            print(f"Looking for products for condition: {condition}")
+            # This would need to be implemented in graph_manager.py
+            # For now, we'll let vector search handle this
+            pass
 
     graph_result = GraphResult(found_entities=found_entities, relationships=relationships, links=links)
-    print(f"Graph Results: {graph_result}")
+    print(f"Graph Results: found_entities={found_entities} relationships={relationships[:3]} links={links[:3]}")
     return {"graph_results": graph_result.model_dump()}
 
 def vector_search_node(state: AgentState):
@@ -219,9 +331,12 @@ def vector_search_node(state: AgentState):
     question = state["question"]
     graph_results = state.get("graph_results", {})
     enhanced_query = question
+    
+    # Enhance query with entities found in graph search
     if graph_results.get("found_entities"):
         entities = " ".join(graph_results["found_entities"])
         enhanced_query = f"{question} {entities}"
+        print(f"Enhanced query: {enhanced_query}")
 
     docs = retriever.invoke(enhanced_query)
     doc_details = [
@@ -331,11 +446,20 @@ if __name__ == "__main__":
     )
     print(f"Q: {question2}\nA: {response2['final_answer']}")
 
-    # Test Case 3: Vector Search Only
-    print("\n--- TEST CASE 3: VECTOR SEARCH ONLY ---")
-    question3 = "What is DuoLife Collagen good for?"
+    # Test Case 3: Ingredient Information (NEW TEST)
+    print("\n--- TEST CASE 3: INGREDIENT INFORMATION ---")
+    question3 = "What is the primary function of resveratrol?"
     response3 = agent.invoke(
         {"question": question3},
         config={"configurable": {"session_id": session_id}}
     )
     print(f"Q: {question3}\nA: {response3['final_answer']}")
+
+    # Test Case 4: Vector Search Only
+    print("\n--- TEST CASE 4: VECTOR SEARCH ONLY ---")
+    question4 = "What is DuoLife's business model?"
+    response4 = agent.invoke(
+        {"question": question4},
+        config={"configurable": {"session_id": session_id}}
+    )
+    print(f"Q: {question4}\nA: {response4['final_answer']}")
